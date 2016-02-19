@@ -1,5 +1,9 @@
-var options = {
-
+    var options = {
+  app_key: 'jh8HDfBxzXZC7sZ5',
+  location: 94102,
+  category: 'music',
+  page_size: 20,
+  date: 'Today'
 };
 
 var searchEventful = (options, callback) => {
@@ -9,23 +13,12 @@ $.ajax({
       data: options,//JSON.stringify(options),
       contentType: 'application/json',
       success: function (data) {
-        // Trigger a fetch to update the messages, pass true to animate
         callback(data);
         console.log(data);
       },
       error: function (data) {
         console.error('Eventful AJAX failed to GET');
+        console.log('problem is ', JSON.parse(data.responseText));
       }
     });
-  // TODO
 };
-
-// window.searchEventful = searchEventful;
-
-option = {
-  app_key: EVENTFUL_API_KEY,
-  location: 94102,
-  date: 'Today',
-  category: music
-};
-
