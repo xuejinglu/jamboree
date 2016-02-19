@@ -6,7 +6,7 @@ class Map extends Component {
     super(props);
   }
 
-  initMap() {
+  componentDidMount() {
     const myLatLng = { lat: -25.363, lng: 131.044 };
 
     const map = new google.maps.Map(document.getElementById('map'), {
@@ -23,7 +23,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div> This div element contains map {this.initMap()}</div>
+      <div id="map"> This div element contains map </div>
       );
   }
 }
