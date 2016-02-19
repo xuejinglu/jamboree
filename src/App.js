@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Map from './components/Map';
-import initMap from '../../public/Helpers'
-import {GoogleMapLoader, GoogleMap, Marker} from "react-google-maps";
+import initMap from '../public/Helpers'
 
 export class App extends Component {
   constructor(props){
@@ -19,7 +18,7 @@ export class App extends Component {
 
   render () {
     return (
-      <Map />
+      <Map props={this.state}/>
     );
   }
 

@@ -13,4 +13,4 @@ var initMap = function () {
   });
 };
 
-window.initMap = initMap;
+export default initMap;

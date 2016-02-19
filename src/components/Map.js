@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {GoogleMapLoader, GoogleMap, Marker} from "react-google-maps";
 import initMap from '../../public/Helpers'
 
 class Map extends Component {
