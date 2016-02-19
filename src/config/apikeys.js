@@ -1,1 +1,3 @@
-window.EVENTFUL_API_KEY = 'jh8HDfBxzXZC7sZ5';
+export default {
+  eventful: 'jh8HDfBxzXZC7sZ5',
+};
