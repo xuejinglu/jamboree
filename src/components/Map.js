@@ -1,40 +1,31 @@
 import React, { Component } from 'react';
-import initMap from '../../public/Helpers'
+// import initMap from '../../public/Helpers'
 
 class Map extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
   initMap() {
-    var myLatLng = {lat: -25.363, lng: 131.044};
+    const myLatLng = { lat: -25.363, lng: 131.044 };
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    const map = new google.maps.Map(document.getElementById('map'), {
       zoom: 4,
-      center: myLatLng
+      center: myLatLng,
     });
 
-    console.log(map);
-
-    var marker = new google.maps.Marker({
+    const marker = new google.maps.Marker({
       position: myLatLng,
       map: map,
-      title: 'Hello World!'
+      title: 'Hello World!',
     });
   }
 
   render() {
-    console.log("we're in Map render!!");
-
     return (
-
-      <div> werwerew {this.initMap()}</div>
-      )
+      <div> This div element contains map {this.initMap()}</div>
+      );
   }
 }
 
 export default Map;
-
-
-
-
