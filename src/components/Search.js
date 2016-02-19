@@ -6,9 +6,9 @@ var Search = ({getQuery}) => (
     </div>
     <div class="form-group">
       <label for="start">Enter start date: (DDMMYYYY)</label>
-      <input type="number" class="form-control" id="start">
+      <input type="number" class="form-control" id="start" />
             <label for="end">Enter end date: (DDMMYYYY, optional)</label>
-      <input type="number" class="form-control" id="end">
+      <input type="number" class="form-control" id="end" />
       <button type="submit" class="btn btn-info" onclick={getQuery($('#start').val(), $('end').val())} style="margin-top: .5em">
         Start Search
       </button>
