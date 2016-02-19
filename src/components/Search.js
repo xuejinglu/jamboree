@@ -1,19 +1,21 @@
-var Search = ({getQuery}) => (
-  <div class="search" style="border-style:solid; border-color: #80bfff; padding:1em">
-    <div class="form-group">
-      <label for="zip">Enter a Zipcode:</label>
-      <input type="number" class="form-control" id="usr">
+import React from 'react';
+import $ from 'jquery';
+const Search = ({ getQuery }) => (
+  <div className="search" style="border-style:solid; border-color: #80bfff; padding:1em">
+    <div className="form-group">
+      <label htmlFor="zip">Enter a Zipcode:</label>
+      <input type="number" className="form-control" id="zip"/>
     </div>
-    <div class="form-group">
-      <label for="start">Enter start date: (DDMMYYYY)</label>
-      <input type="number" class="form-control" id="start" />
-            <label for="end">Enter end date: (DDMMYYYY, optional)</label>
-      <input type="number" class="form-control" id="end" />
-      <button type="submit" class="btn btn-info" onclick={getQuery($('#start').val(), $('end').val())} style="margin-top: .5em">
+    <div className="form-group">
+      <label htmlFor="start">Enter start date: (DDMMYYYY)</label>
+      <input type="number" className="form-control" id="start" />
+            <label htmlFor="end">Enter end date: (DDMMYYYY, optional)</label>
+      <input type="number" className="form-control" id="end" />
+      <button type="submit" className="btn btn-info" onClick={ getQuery($('#start').val(), $('end').val()) } style="margin-top: .5em">
         Start Search
       </button>
     </div>
   </div>
-)
+);
 
-window.Search = Search;
+export default Search;
