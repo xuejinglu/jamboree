@@ -18,26 +18,13 @@ export class App extends Component {
 
   render () {
     return (
-      <Map props={this.state}/>
+      <div>
+        <div> something </div>
+        <Map props={this.state}/>
+      </div>
     );
   }
 
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
-
-
-
-  // render() {
-  //   console.log("this.state.mapOptions", this.state.mapOptions);
-  //   return (
-  //     <div>
-  //       <div>
-
-  //       </div>
-  //       <div>
-  //         <Map />
-  //       </div>
-  //     </div>
-  //     )
-  // }

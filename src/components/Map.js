@@ -9,8 +9,6 @@ class Map extends Component {
   initMap() {
     var myLatLng = {lat: -25.363, lng: 131.044};
 
-    console.log("WHAT!!!");
-
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 4,
       center: myLatLng
@@ -23,15 +21,14 @@ class Map extends Component {
       map: map,
       title: 'Hello World!'
     });
-
-
   }
 
   render() {
     console.log("we're in Map render!!");
 
     return (
-      <div> {this.initMap()}</div>
+
+      <div> werwerew {this.initMap()}</div>
       )
   }
 }
