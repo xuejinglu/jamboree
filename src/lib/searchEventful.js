@@ -10,15 +10,16 @@ var searchEventful = (options, callback) => {
   $.ajax({
     url: "http://api.eventful.com/json/events/search",
     type: 'GET',
-    data: options,//JSON.stringify(options),
+    data: options,
     contentType: 'application/json',
     success: function (data) {
-      callback(data);
       console.log(data);
+      callback(data);
     },
     error: function (data) {
       console.error('Eventful AJAX failed to GET');
       console.log('problem is ', JSON.parse(data.responseText));
+      callback(data);
     }
 });
 };
