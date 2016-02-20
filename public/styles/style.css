@@ -2,13 +2,35 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  width: 85%;
+
+  margin: auto;
+  background: #b3d9ff;
+}
+
+h1 {
+  text-align: center;
+  font-weight: bold;
+}
+
+.search {
+  border-color: #80bfff;
+  border-radius: 5px;
+  border-style:solid;
+  padding:1em;
+}
+
+.submitbutton {
+  margin-bottom: -1em;
+  margin-top: 1em;
 }
 
 #app {
   height: 100%;
-  background: blue;
+  background: #e6f2ff;
 }
 
 #map {
-  height: 250px;
+  height: 500px;
 }
+
