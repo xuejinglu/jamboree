@@ -1,14 +1,13 @@
-import { eventful } from '../config/apiKeys';
 import $ from 'jquery';
 
-const searchEventful = (callback) => {
-  const options = {
-    app_key: eventful,
-    location: 94102,
-    category: 'music',
-    page_size: 20,
-    date: 'Today',
-  };
+const searchEventful = (options, callback) => {
+  // const options = {
+  //   app_key: eventful,
+  //   location: 94102,
+  //   category: 'music',
+  //   page_size: 20,
+  //   date: 'Today',
+  // };
 
   $.ajax({
     url: 'http://api.eventful.com/json/events/search',
@@ -22,7 +21,7 @@ const searchEventful = (callback) => {
     error: (data) => {
       console.error('Eventful AJAX failed to GET');
       console.log('problem is ', JSON.parse(data.responseText));
-      callback(data);
+      callback(JSON.parse(data.responseText));
     },
   });
 };
