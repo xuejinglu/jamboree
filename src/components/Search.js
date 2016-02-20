@@ -11,9 +11,9 @@ const Search = ({ getQuery }) => (
       <input type="number" className="form-control" id="start" />
             <label htmlFor="end">Enter end date: (DDMMYYYY, optional)</label>
       <input type="number" className="form-control" id="end" />
-      <button type="submit" className="btn btn-info" onClick={ getQuery($('#start').val(), $('end').val()) } style="margin-top: .5em">
-        Start Search
-      </button>
+      <button type="submit" className="btn btn-info"
+        onClick={ getQuery($('#start').val(), $('end').val()) } style="margin-top: .5em">
+          Start Search </button>
     </div>
   </div>
 );
