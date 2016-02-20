@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Map from './components/Map';
-import Search from './components/Search'
-import Key from './config/apikeys'
-import searchEventful from './lib/searchEventful'
+import Search from './components/Search';
+import Key from './config/apikeys';
+import searchEventful from './lib/searchEventful';
 
 export class App extends Component {
   constructor(props) {
@@ -14,43 +14,41 @@ export class App extends Component {
         zoom: 3,
       },
       map: null,
-      data: "temporary",
+      data: 'temporary',
     };
   }
 
-getQuery (zip, start, end) {
-  var dateRange = start +'00-';
-  if (!end){
-    dateRange= dateRange + start +'00';
-    console.log(dateRange);
-  } else {
-    dateRange = dateRange + end + '00';
-    console.log(dateRange);
+  getQuery(zip, start, end) {
+    var dateRange = start + '00-';
+    if (!end) {
+      dateRange= dateRange + start + '00';
+      console.log(dateRange);
+    } else {
+      dateRange = dateRange + end + '00';
+      console.log(dateRange);
+    }
+    var options = {
+      app_key: Key.eventful,
+      location: zip,
+      category: 'music',
+      page_size: 20,
+      date: dateRange,
+    };
+    var data = searchEventful(options, function(results) {
+      console.log('date is ', options.date);
+      this.setState({ data: results });
+      console.log('state data is ', this.state.data);
+    }.bind(this));
   }
-
-  var options = {
-    app_key: Key.eventful,
-    location: zip,
-    category: 'music',
-    page_size: 20,
-    date: dateRange,
-  };
-
-  var data = searchEventful(options, function(results){
-    console.log("date is ", options.date);
-    this.setState({data: results});
-    console.log('state data is ', this.state.data);
-  }.bind(this));
-};
 
 
   render() {
     return (
       <container>
         <h1> JAMBOREE </h1>
-        <Search getQuery={this.getQuery.bind(this)} />
+        <Search getQuery={ this.getQuery.bind(this) } />
         <br/><br/>
-        <Map props={this.state}/>
+        <Map props={ this.state }/>
       </container>
     );
   }

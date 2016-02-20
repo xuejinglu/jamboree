@@ -5,15 +5,15 @@ class Search extends React.Component {
     super(props);
     this.state = {
 
-    }
+    };
   }
 
-  getInput(){
+  getInput() {
     this.props.getQuery(this.refs.zip.value, this.refs.start.value, this.refs.end.value);
   }
 
   render() {
-    return(
+    return (
       <div className="search">
         <div className="form-group">
           <label htmlFor="zip">Enter a Zipcode:</label>
@@ -29,8 +29,8 @@ class Search extends React.Component {
               Start Search </button>
         </div>
       </div>
-    )
+    );
   }
-};
+}
 
 export default Search;
