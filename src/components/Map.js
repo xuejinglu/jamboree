@@ -25,12 +25,23 @@ class Map extends Component {
       title: 'Hello World!',
     });
   }
-
+//events[i].(latitude, longitude, title,  venue_ name, venue_address, venue_url, url, city_name, region_abbr)
   renderPins(events, map) {
+    let description;
+    if (event.description) {
+      description = '<br><b>description</b>: ' + events[i].description + '</p>';
+    } else {
+      description = '';
+    }
+
+
     var pins = [];
     console.log('inside renderPins function');
     for (var i = 0; i < events.length;i ++) {
-      var contentString = '<div>placeholder</div>';
+      var contentString = '<p><b>Event name</b>: ' + events[i].title +
+                    '<br><b>Venue</b>: ' + events[i].venue_name +
+                    '<br><a href="' + events[i].url +'">More event information</a>' +
+                    description;
       pins.push({
         latlon: new google.maps.LatLng(events[i].latitude, events[i].longitude),
         message: new google.maps.InfoWindow({
