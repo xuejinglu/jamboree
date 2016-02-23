@@ -26,7 +26,7 @@ class Map extends Component {
     });
   }
 
-  renderPins(events) {
+  renderPins(events, map) {
     var pins = [];
     console.log('inside renderPins function');
     for (var i = 0; i < events.length;i ++) {
@@ -41,7 +41,7 @@ class Map extends Component {
         description: events.description,
       });
     }
-
+    var currentSelectedMarker;
     pins.forEach(function(n, i){
         var marker = new google.maps.Marker({
             position: n.latlon,
@@ -53,7 +53,6 @@ class Map extends Component {
         // For each marker created, add a listener that checks for clicks
         google.maps.event.addListener(marker, 'click', function(e){
 
-            // When clicked, open the selected marker's message
             if (currentSelectedMarker){
                 currentSelectedMarker.message.close();
             }
@@ -86,7 +85,7 @@ class Map extends Component {
     });
     console.log("nextProps events are ", nextProps.parentState.events);
     console.log('about to enter pins');
-    this.renderPins(nextProps.parentState.events);
+    this.renderPins(nextProps.parentState.events, map);
     return true;
   }
 

@@ -41,11 +41,10 @@ export class App extends Component {
     var data = searchEventful(options, function (results) {
       console.log('date is ', options.date);
       this.setState({ events: results.events.event });
-      this.setState({ lat: results.events.event[0].latitude });
-      console.log('NEW LAT IS ', this.state.lat);
-      this.setState({ lng: results.events.event[0].longitude });
-      console.log('NEW LONG IS ', this.state.lng);
-      console.log('state data is ', this.state.events);
+      this.setState({
+        lat: results.events.event[0].latitude,
+        lng: results.events.event[0].longitude
+      });
     }.bind(this));
   }
 
