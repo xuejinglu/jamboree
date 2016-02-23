@@ -10,9 +10,9 @@ class Map extends Component {
     }
   }
 
-  renderMap () {
-    console.log("renderMap position is " , this.props.parentState.lat, this.props.parentState.lng);
-    let myLatLng = { lat: this.props.parentState.lat, lng: this.props.parentState.lng };
+  renderMap() {
+    console.log('renderMap position is ', this.props.parentState.lat, this.props.parentState.lng);
+    const myLatLng = { lat: this.props.parentState.lat, lng: this.props.parentState.lng };
 
     let map = new google.maps.Map(document.getElementById('map'), {
       zoom: 13,
@@ -27,26 +27,26 @@ class Map extends Component {
   }
 //events[i].(latitude, longitude, title,  venue_ name, venue_address, venue_url, url, city_name, region_abbr)
   renderPins(events, map) {
-    let description;
-    if (event.description) {
-      description = '<br><b>description</b>: ' + events[i].description + '</p>';
-    } else {
-      description = '';
-    }
 
 
     var pins = [];
     console.log('inside renderPins function');
     for (var i = 0; i < events.length;i ++) {
-      var contentString = '<p><b>Event name</b>: ' + events[i].title +
+      let description;
+      if (event.description) {
+        description = '<br><b>description</b>: ' + events[i].description + '</p>';
+      } else {
+        description = '';
+      }
+      const contentString = '<p><b>Event name</b>: ' + events[i].title +
                     '<br><b>Venue</b>: ' + events[i].venue_name +
-                    '<br><a href="' + events[i].url +'">More event information</a>' +
+                    '<br><a href="' + events[i].url + '">More event information</a>' +
                     description;
       pins.push({
         latlon: new google.maps.LatLng(events[i].latitude, events[i].longitude),
         message: new google.maps.InfoWindow({
-            content: contentString,
-            maxWidth: 320
+          content: contentString,
+          maxWidth: 320,
         }),
         place: events.title,
         description: events.description,
@@ -54,22 +54,21 @@ class Map extends Component {
     }
     var currentSelectedMarker;
     pins.forEach(function(n, i){
-        var marker = new google.maps.Marker({
-            position: n.latlon,
-            map: map,
-            title: "Big Map",
-            icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-        });
+      var marker = new google.maps.Marker({
+        position: n.latlon,
+        map: map,
+        title: "Big Map",
+        icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+      });
 
-        // For each marker created, add a listener that checks for clicks
-        google.maps.event.addListener(marker, 'click', function(e){
-
-            if (currentSelectedMarker){
-                currentSelectedMarker.message.close();
-            }
-            currentSelectedMarker = n;
-            n.message.open(map, marker);
-        });
+      // For each marker created, add a listener that checks for clicks
+      google.maps.event.addListener(marker, 'click', function(e){
+        if (currentSelectedMarker){
+            currentSelectedMarker.message.close();
+        }
+        currentSelectedMarker = n;
+        n.message.open(map, marker);
+      });
     });
   }
 

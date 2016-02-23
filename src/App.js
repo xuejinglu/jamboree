@@ -16,14 +16,15 @@ export class App extends Component {
       },
       map: null,
       events: [],
-      //events[i].(latitude, longitude, title,  venue_ name, venue_address, venue_url, url, city_name, region_abbr)
+      //events[i].(latitude, longitude, title,  venue_ name,
+        //venue_address, venue_url, url, city_name, region_abbr)
       lat: 37.7833,
       lng: -122.4167,
     };
   }
 
   getQuery(zip, start, end) {
-    var dateRange = start + '00-';
+    let dateRange = start + '00-';
     if (!end) {
       dateRange = dateRange + start + '00';
       console.log(dateRange);
@@ -31,19 +32,19 @@ export class App extends Component {
       dateRange = dateRange + end + '00';
       console.log(dateRange);
     }
-    var options = {
+    let options = {
       app_key: Key.eventful,
       location: zip,
       category: 'music',
       page_size: 20,
       date: dateRange,
     };
-    var data = searchEventful(options, function (results) {
+    let data = searchEventful(options, function (results) {
       console.log('date is ', options.date);
       this.setState({ events: results.events.event });
       this.setState({
         lat: results.events.event[0].latitude,
-        lng: results.events.event[0].longitude
+        lng: results.events.event[0].longitude,
       });
     }.bind(this));
   }
