@@ -16,8 +16,8 @@ export class App extends Component {
       },
       map: null,
       events: [],
-      //events[i].(latitude, longitude, title,  venue_ name,
-        //venue_address, venue_url, url, city_name, region_abbr)
+      // events[i].(latitude, longitude, title,  venue_ name,
+      // venue_address, venue_url, url, city_name, region_abbr)
       lat: 37.7833,
       lng: -122.4167,
     };
@@ -58,7 +58,7 @@ export class App extends Component {
         <br/><br/>
         <Map parentState={ this.state } />
         <br/>
-
+        <EventList data={ this.state.events } />
       </container>
     );
   }
