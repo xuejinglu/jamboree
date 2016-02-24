@@ -58,7 +58,7 @@ export class App extends Component {
         <br/><br/>
         <Map parentState={ this.state } />
         <br/>
-
+        <EventList data={ this.state.events } />
       </container>
     );
   }

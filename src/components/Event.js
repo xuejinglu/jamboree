@@ -9,10 +9,12 @@ class Event extends Component {
   render() {
     return (
       <article>
-        <h4>{ this.state.event.name }</h4>
-        <h5>{ this.state.event.venue.name }</h5>
-        <h6>{ this.state.event.date }</h6>
-        <p>{ this.state.event.description }</p>
+        <h4>{ this.props.data.title }</h4>
+        <h5>{ this.props.data.venue_name }</h5>
+        <h6>{ this.props.data.venue_address}
+          <br> { this.props.data.city_name} , { this.props.data.region_abbr}
+        </h6>
+        <p>{ this.props.data.description }</p>
       </article>
     );
   }

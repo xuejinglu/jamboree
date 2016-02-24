@@ -4,13 +4,14 @@ import Event from './event';
 class EventList extends Component {
   constructor(props) {
     super(props);
-    this.state = { events: props.data };
+    this.state = { events: this.props.data };
   }
 
   render() {
     return (
       <section className="eventList">
-        {this.state.events.map((event, i) =>
+        <div> EVENTS </div>
+        {this.props.data.map((event, i) =>
           <Event key={i} data={event} />
         )}
       </section>
@@ -18,6 +19,6 @@ class EventList extends Component {
   }
 }
 
-EventList.propTypes = { data: React.PropTypes.object.isRequired };
+EventList.propTypes = { data: React.PropTypes.array.isRequired };
 
 export default EventList;
