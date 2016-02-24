@@ -53,12 +53,20 @@ export class App extends Component {
   render() {
     return (
       <container>
-        <h1> JAMBOREE </h1>
-        <Search getQuery={ this.getQuery.bind(this) } />
-        <br/><br/>
-        <Map parentState={ this.state } />
-        <br/>
-        <EventList data={ this.state.events } />
+        <div id="banner-container">
+          <div className="banner">
+            FIND YOUR JAMBOREE
+          </div>
+          <div className="banner">zip code
+          </div>
+        </div>
+        <div className="appThing">
+          <Search getQuery={ this.getQuery.bind(this) } />
+          <br/><br/>
+          <Map parentState={ this.state } />
+          <br/>
+          <EventList data={ this.state.events } />
+        </div>
       </container>
     );
   }

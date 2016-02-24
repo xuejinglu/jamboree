@@ -94,7 +94,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div id="map"> This div element contains map </div>
+      <div className="col-xs-12 text-center" id="map"> This div element contains map </div>
       );
   }
 }
