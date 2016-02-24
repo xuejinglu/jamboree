@@ -17,13 +17,9 @@ class Map extends Component {
     let map = new google.maps.Map(document.getElementById('map'), {
       zoom: 13,
       center: myLatLng,
+      styles: this.props.parentState.mapStyle,
     });
 
-    let marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!',
-    });
   }
 //events[i].(latitude, longitude, title,  venue_ name, venue_address, venue_url, url, city_name, region_abbr)
   renderPins(events, map) {
@@ -69,8 +65,6 @@ class Map extends Component {
     });
   }
 
-
-
   componentDidMount() {
     this.renderMap();
   }
@@ -81,13 +75,9 @@ class Map extends Component {
     let map = new google.maps.Map(document.getElementById('map'), {
       zoom: 13,
       center: myLatLng,
+      styles : this.props.parentState.mapStyle,
     });
 
-    let marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Hello World!',
-    });
     this.renderPins(nextProps.parentState.events, map);
     return true;
   }
@@ -98,5 +88,6 @@ class Map extends Component {
       );
   }
 }
+
 
 export default Map;
