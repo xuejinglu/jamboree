@@ -15,12 +15,16 @@ export class App extends Component {
         zoom: 3,
       },
       map: null,
-      data: 'temporary',
+      events: [],
+      //events[i].(latitude, longitude, title,  venue_ name,
+        //venue_address, venue_url, url, city_name, region_abbr)
+      lat: 37.7833,
+      lng: -122.4167,
     };
   }
 
   getQuery(zip, start, end) {
-    var dateRange = start + '00-';
+    let dateRange = start + '00-';
     if (!end) {
       dateRange = dateRange + start + '00';
       console.log(dateRange);
@@ -28,17 +32,20 @@ export class App extends Component {
       dateRange = dateRange + end + '00';
       console.log(dateRange);
     }
-    var options = {
+    let options = {
       app_key: Key.eventful,
       location: zip,
       category: 'music',
       page_size: 20,
       date: dateRange,
     };
-    var data = searchEventful(options, function (results) {
+    let data = searchEventful(options, function (results) {
       console.log('date is ', options.date);
-      this.setState({ data: results });
-      console.log('state data is ', this.state.data);
+      this.setState({ events: results.events.event });
+      this.setState({
+        lat: results.events.event[0].latitude,
+        lng: results.events.event[0].longitude,
+      });
     }.bind(this));
   }
 
@@ -49,9 +56,9 @@ export class App extends Component {
         <h1> JAMBOREE </h1>
         <Search getQuery={ this.getQuery.bind(this) } />
         <br/><br/>
-        <Map props={ this.state }/>
+        <Map parentState={ this.state } />
         <br/>
-        <EventList />
+
       </container>
     );
   }
