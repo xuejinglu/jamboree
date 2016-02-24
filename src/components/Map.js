@@ -27,10 +27,7 @@ class Map extends Component {
   }
 //events[i].(latitude, longitude, title,  venue_ name, venue_address, venue_url, url, city_name, region_abbr)
   renderPins(events, map) {
-
-
     var pins = [];
-    console.log('inside renderPins function');
     for (var i = 0; i < events.length;i ++) {
       let description;
       if (event.description) {
@@ -79,8 +76,6 @@ class Map extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('NEXT PROPS IS ' , nextProps);
-    console.log("reRenderMap position is " , nextProps.parentState.lat, nextProps.parentState.lng);
     let myLatLng = { lat: Number(nextProps.parentState.lat), lng: Number(nextProps.parentState.lng) };
 
     let map = new google.maps.Map(document.getElementById('map'), {
@@ -93,8 +88,6 @@ class Map extends Component {
       map: map,
       title: 'Hello World!',
     });
-    console.log("nextProps events are ", nextProps.parentState.events);
-    console.log('about to enter pins');
     this.renderPins(nextProps.parentState.events, map);
     return true;
   }

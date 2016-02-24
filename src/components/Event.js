@@ -12,7 +12,7 @@ class Event extends Component {
         <h4>{ this.props.data.title }</h4>
         <h5>{ this.props.data.venue_name }</h5>
         <h6>{ this.props.data.venue_address}
-          <br> { this.props.data.city_name} , { this.props.data.region_abbr}
+          <br/> { this.props.data.city_name} , { this.props.data.region_abbr}
         </h6>
         <p>{ this.props.data.description }</p>
       </article>
