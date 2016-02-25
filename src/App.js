@@ -161,15 +161,13 @@ export class App extends Component {
   }
 
   getQuery(city, start, end) {
-    let formattedStart = start.split('-').join('');
+    const formattedStart = start.split('-').join('');
     let dateRange = formattedStart + '00-'; //eslint-disable-line
     if (!end) {
       dateRange = dateRange + formattedStart + '00'; //eslint-disable-line
-      console.log(dateRange);
     } else {
       let formattedEnd = end.split('-').join('');
       dateRange = dateRange + formattedEnd + '00'; //eslint-disable-line
-      console.log(dateRange);
     }
     const options = {
       app_key: Key.eventful,
@@ -179,11 +177,11 @@ export class App extends Component {
       date: dateRange,
     };
     const data = searchEventful(options, function (results) { //eslint-disable-line
-      let eventList = results.events.event;
+      const eventList = results.events.event;
       this.setState({ events: results.events.event });
       this.setState({
-        lat: eventList(eventList.length-1).latitude,
-        lng: eventList(eventList.length-1).longitude,
+        lat: eventList(eventList.length - 1).latitude,
+        lng: eventList(eventList.length - 1).longitude,
       });
     }.bind(this)); // eslint-disable-line
   }
