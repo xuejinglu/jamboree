@@ -2,10 +2,8 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  width: 85%;
-
   margin: auto;
-  background: #b3d9ff;
+  /*background: #b3d9ff;*/
 }
 
 h1 {
@@ -14,10 +12,8 @@ h1 {
 }
 
 .search {
-  border-color: #80bfff;
-  border-radius: 5px;
-  border-style:solid;
-  padding:1em;
+  color: #00fde2;
+  margin: 5px 10% 20px 10%;
 }
 
 .submitbutton {
@@ -25,12 +21,43 @@ h1 {
   margin-top: 1em;
 }
 
-#app {
+#banner-container {
   height: 100%;
-  background: #e6f2ff;
+  width: 100%;
+  background-color: #021019;
+  background-size: cover;
+  background-repeat: no-repeat;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: -1;
+  right: 0;
+  top: 0;
+}
+
+.banner {
+  font-weight: bold;
+  text-align: center;
+  font-size: 160px;
+  color: #00fde2;
+}
+
+.eventList {
+  color: #00fde2;
+}
+
+#app {
+  min-height: 100%;
+  width: 100%;
+  top: 100%;
+  background: #021019;
+  position: absolute;
+  margin: 10px;
 }
 
 #map {
-  height: 500px;
+  height: 600px;
+  width: 80%;
+  margin: 15px 10% 0 10%;
 }
 
