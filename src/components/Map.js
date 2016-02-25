@@ -22,7 +22,7 @@ class Map extends Component {
     };
 
     const map = new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
-      zoom: 12,
+      zoom: 13,
       center: myLatLng,
       styles: this.props.parentState.mapStyle,
     });
