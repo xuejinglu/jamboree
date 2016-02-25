@@ -18,7 +18,7 @@ class Search extends React.Component {
       <div className="search">
         <div className="form-group">
           <div className="col-xs-3">
-            <label htmlFor="city">Enter a city name:</label>
+            <label htmlFor="city">Enter a city or zipcode:</label>
             <input type="string" className="form-control" ref="city"/>
           </div>
           <div className="col-xs-3">

@@ -180,8 +180,8 @@ export class App extends Component {
       const eventList = results.events.event;
       this.setState({ events: results.events.event });
       this.setState({
-        lat: eventList(eventList.length - 1).latitude,
-        lng: eventList(eventList.length - 1).longitude,
+        lat: eventList[Math.floor(eventList.length/2)].latitude,
+        lng: eventList[Math.floor(eventList.length/2)].longitude,
       });
     }.bind(this)); // eslint-disable-line
   }
