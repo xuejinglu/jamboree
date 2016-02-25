@@ -166,7 +166,7 @@ export class App extends Component {
     if (!end) {
       dateRange = dateRange + formattedStart + '00'; //eslint-disable-line
     } else {
-      let formattedEnd = end.split('-').join('');
+      const formattedEnd = end.split('-').join('');
       dateRange = dateRange + formattedEnd + '00'; //eslint-disable-line
     }
     const options = {
