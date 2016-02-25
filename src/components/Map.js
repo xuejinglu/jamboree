@@ -1,43 +1,66 @@
 import React, { Component } from 'react';
 // import initMap from '../../public/Helpers'
 
+
 class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
       lat: this.props.lat,
       lng: this.props.lng,
-    }
+    };
   }
 
-  renderMap() {
-    console.log('renderMap position is ', this.props.parentState.lat, this.props.parentState.lng);
-    const myLatLng = { lat: this.props.parentState.lat, lng: this.props.parentState.lng };
+  componentDidMount() {
+    this.renderMap();
+  }
 
-    let map = new google.maps.Map(document.getElementById('map'), {
+  shouldComponentUpdate(nextProps) {
+    const myLatLng = {
+      lat: Number(nextProps.parentState.lat),
+      lng: Number(nextProps.parentState.lng),
+    };
+
+    const map = new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
       zoom: 13,
       center: myLatLng,
       styles: this.props.parentState.mapStyle,
     });
 
+    this.renderPins(nextProps.parentState.events, map);
+    return true;
   }
-//events[i].(latitude, longitude, title,  venue_ name, venue_address, venue_url, url, city_name, region_abbr)
+
+  renderMap() {
+    const myLatLng = {
+      lat: this.props.parentState.lat,
+      lng: this.props.parentState.lng,
+    };
+
+    const map = new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
+      zoom: 13,
+      center: myLatLng,
+      styles: this.props.parentState.mapStyle,
+    });
+  }
+  // events[i].(latitude, longitude, title,  venue_ name,
+  // venue_address, venue_url, url, city_name, region_abbr)
   renderPins(events, map) {
-    var pins = [];
-    for (var i = 0; i < events.length;i ++) {
+    const pins = [];
+    for (let i = 0; i < events.length; i++) {
       let description;
       if (event.description) {
-        description = '<br><b>description</b>: ' + events[i].description + '</p>';
+        description = '<br><b>description</b>: ' + events[i].description + '</p>'; //eslint-disable-line
       } else {
         description = '';
       }
-      const contentString = '<p><b>Event name</b>: ' + events[i].title +
+      const contentString = '<p><b>Event name</b>: ' + events[i].title + //eslint-disable-line
                     '<br><b>Venue</b>: ' + events[i].venue_name +
                     '<br><a href="' + events[i].url + '">More event information</a>' +
-                    description;
+                    description; //eslint-disable-line
       pins.push({
-        latlon: new google.maps.LatLng(events[i].latitude, events[i].longitude),
-        message: new google.maps.InfoWindow({
+        latlon: new google.maps.LatLng(events[i].latitude, events[i].longitude), //eslint-disable-line
+        message: new google.maps.InfoWindow({ //eslint-disable-line
           content: contentString,
           maxWidth: 320,
         }),
@@ -45,41 +68,25 @@ class Map extends Component {
         description: events.description,
       });
     }
-    var currentSelectedMarker;
-    pins.forEach(function(n, i){
-      var marker = new google.maps.Marker({
+    let currentSelectedMarker;
+    pins.forEach((n, i) => { //eslint-disable-line
+      // (linter --- i is declared but never used)
+      let marker = new google.maps.Marker({ //eslint-disable-line
         position: n.latlon,
-        map: map,
-        title: "Big Map",
-        icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+        map: map, //eslint-disable-line
+        title: 'Big Map',
+        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
       });
 
       // For each marker created, add a listener that checks for clicks
-      google.maps.event.addListener(marker, 'click', function(e){
-        if (currentSelectedMarker){
-            currentSelectedMarker.message.close();
+      google.maps.event.addListener(marker, 'click', function (e){ //eslint-disable-line
+        if (currentSelectedMarker) {
+          currentSelectedMarker.message.close();
         }
         currentSelectedMarker = n;
         n.message.open(map, marker);
       });
     });
-  }
-
-  componentDidMount() {
-    this.renderMap();
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    let myLatLng = { lat: Number(nextProps.parentState.lat), lng: Number(nextProps.parentState.lng) };
-
-    let map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 13,
-      center: myLatLng,
-      styles : this.props.parentState.mapStyle,
-    });
-
-    this.renderPins(nextProps.parentState.events, map);
-    return true;
   }
 
   render() {
@@ -88,6 +95,12 @@ class Map extends Component {
       );
   }
 }
+
+Map.propTypes = {
+  lat: React.PropTypes.number,
+  lng: React.PropTypes.number,
+  parentState: React.PropTypes.object,
+};
 
 
 export default Map;

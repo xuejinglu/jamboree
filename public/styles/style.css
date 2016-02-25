@@ -16,8 +16,6 @@ h1 {
   margin: 5px 10% 20px 10%;
 }
 
-
-
 .submitbutton {
   margin-bottom: -1em;
   margin-top: 1em;
@@ -41,6 +39,10 @@ h1 {
   font-weight: bold;
   text-align: center;
   font-size: 160px;
+  color: #00fde2;
+}
+
+.eventList {
   color: #00fde2;
 }
 

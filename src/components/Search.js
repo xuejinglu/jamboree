@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from 'jquery';
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +12,7 @@ class Search extends React.Component {
     this.props.getQuery(this.refs.zip.value, this.refs.start.value, this.refs.end.value);
   }
 
+  /*eslint-disable */
   render() {
     return (
       <div className="search">
@@ -30,13 +31,18 @@ class Search extends React.Component {
           </div>
           <div className="col-xs-1">
           <button type="submit" className="btn btn-info submitbutton"
-            onClick={this.getInput.bind(this)}>
-              Start Search </button>
+            onClick={this.getInput.bind(this)}> Start Search
+          </button>
           </div>
         </div>
       </div>
     );
   }
+  /*eslint-enable */
 }
+
+Search.propTypes = {
+  getQuery: React.PropTypes.function,
+};
 
 export default Search;
