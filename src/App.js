@@ -160,28 +160,30 @@ export class App extends Component {
     };
   }
 
-  getQuery(zip, start, end) {
-    let dateRange = start + '00-'; //eslint-disable-line
+  getQuery(city, start, end) {
+    let formattedStart = start.split('-').join('');
+    let dateRange = formattedStart + '00-'; //eslint-disable-line
     if (!end) {
-      dateRange = dateRange + start + '00'; //eslint-disable-line
+      dateRange = dateRange + formattedStart + '00'; //eslint-disable-line
       console.log(dateRange);
     } else {
-      dateRange = dateRange + end + '00'; //eslint-disable-line
+      let formattedEnd = end.split('-').join('');
+      dateRange = dateRange + formattedEnd + '00'; //eslint-disable-line
       console.log(dateRange);
     }
     const options = {
       app_key: Key.eventful,
-      location: zip,
+      location: city,
       category: 'music',
       page_size: 20,
       date: dateRange,
     };
     const data = searchEventful(options, function (results) { //eslint-disable-line
-      console.log('date is ', options.date);
+      let eventList = results.events.event;
       this.setState({ events: results.events.event });
       this.setState({
-        lat: results.events.event[0].latitude,
-        lng: results.events.event[0].longitude,
+        lat: eventList(eventList.length-1).latitude,
+        lng: eventList(eventList.length-1).longitude,
       });
     }.bind(this)); // eslint-disable-line
   }
@@ -194,7 +196,7 @@ export class App extends Component {
           <div className="banner">
             FIND YOUR JAMBOREE
           </div>
-          <div className="banner">zip code
+          <div className="banner">BY CITY
           </div>
         </div>
         <div className="app">

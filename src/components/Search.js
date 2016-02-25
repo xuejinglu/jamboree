@@ -9,7 +9,7 @@ class Search extends React.Component {
   }
 
   getInput() {
-    this.props.getQuery(this.refs.zip.value, this.refs.start.value, this.refs.end.value);
+    this.props.getQuery(this.refs.city.value, this.refs.start.value, this.refs.end.value);
   }
 
   /*eslint-disable */
@@ -18,8 +18,8 @@ class Search extends React.Component {
       <div className="search">
         <div className="form-group">
           <div className="col-xs-3">
-            <label htmlFor="zip">Enter a Zipcode:</label>
-            <input type="number" className="form-control" ref="zip"/>
+            <label htmlFor="city">Enter a city name:</label>
+            <input type="string" className="form-control" ref="city"/>
           </div>
           <div className="col-xs-3">
             <label htmlFor="start">Enter start date</label>
