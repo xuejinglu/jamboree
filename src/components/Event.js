@@ -14,7 +14,7 @@ class Event extends Component {
         <h6>{ this.props.data.venue_address}
           <br/> { this.props.data.city_name} , { this.props.data.region_abbr}
         </h6>
-        <p>{ this.props.data.description }</p>
+
       </article>
     );
   }
@@ -23,3 +23,5 @@ class Event extends Component {
 Event.propTypes = { data: React.PropTypes.object.isRequired };
 
 export default Event;
+
+//  <p>{ this.props.data.description }</p>

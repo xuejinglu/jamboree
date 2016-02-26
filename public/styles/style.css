@@ -42,6 +42,11 @@ h1 {
   color: #00fde2;
 }
 
+.events-header {
+  font-size: 48px;
+  color: red;
+}
+
 .eventList {
   color: #00fde2;
 }
@@ -56,8 +61,7 @@ h1 {
 }
 
 #map {
-  height: 600px;
-  width: 80%;
-  margin: 15px 10% 0 10%;
+  height: 800px;
+  margin: 15px 0 0 0;
 }
 
