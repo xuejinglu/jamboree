@@ -14,7 +14,6 @@ class Event extends Component {
         <h6>{ this.props.data.venue_address}
           <br/> { this.props.data.city_name} , { this.props.data.region_abbr}
         </h6>
-
       </article>
     );
   }
@@ -24,4 +23,5 @@ Event.propTypes = { data: React.PropTypes.object.isRequired };
 
 export default Event;
 
+// Removed the description from the events listing because it took up too much space. Would Like to re-implement this but use CSS to make it hidden so it could be expanded upon.
 //  <p>{ this.props.data.description }</p>

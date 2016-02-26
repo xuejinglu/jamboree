@@ -55,15 +55,16 @@ class Map extends Component {
       } else {
         description = '';
       }
-      const contentString = '<p><b>Event name</b>: ' + events[i].title + //eslint-disable-line
+      const contentString = '<h2>' + events[i].title + '</h2>' +//eslint-disable-line
+                    '<h3><a href="' + events[i].url + '">Buy Tickets</a></h3>' +
                     '<br><b>Venue</b>: ' + events[i].venue_name +
-                    '<br><a href="' + events[i].url + '">Buy Tickets</a>' +
                     description; //eslint-disable-line
       pins.push({
         latlon: new google.maps.LatLng(events[i].latitude, events[i].longitude), //eslint-disable-line
         message: new google.maps.InfoWindow({ //eslint-disable-line
           content: contentString,
           maxWidth: 320,
+          maxHeight: 250,
         }),
         place: events.title,
         description: events.description,

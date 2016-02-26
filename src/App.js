@@ -172,7 +172,7 @@ export class App extends Component {
     const options = {
       app_key: Key.eventful,
       location: city,
-      category: 'music',
+      // category: 'music',
       page_size: 20,
       date: dateRange,
     };

@@ -35,6 +35,11 @@ h1 {
   top: 0;
 }
 
+article {
+  border-size: 1px;
+  border-color: white;
+}
+
 .banner {
   font-weight: bold;
   text-align: center;
