@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Map from './components/Map';
 import Search from './components/Search';
 import Key from './config/apikeys';
-import searchEventful from './lib/searchEventful';
 import EventList from './components/EventList';
 
 /*eslint-disable */
@@ -171,12 +170,13 @@ export class App extends Component {
     }
     const options = {
       app_key: Key.eventful,
-      location: city,
-      // category: 'music',
+      where: city,
+      q: 'music',
       page_size: 20,
+      sort_order: 'popularity',
       date: dateRange,
     };
-    const data = searchEventful(options, function (results) { //eslint-disable-line
+    EVDB.API.call("/events/search", options, function (results) { //eslint-disable-line
       const eventList = results.events.event;
       this.setState({ events: results.events.event });
       this.setState({
