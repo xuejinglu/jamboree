@@ -49,20 +49,21 @@ class Map extends Component {
     const pins = [];
     for (let i = 0; i < events.length; i++) {
       let description;
-      if (event.description) {
-        description = '<br><b>description</b>: ' + events[i].description + '</p>'; //eslint-disable-line
+      if (events[i].description) {
+        description = '<br><b>Description</b>: ' + events[i].description + '</p>'; //eslint-disable-line
       } else {
         description = '';
       }
-      const contentString = '<p><b>Event name</b>: ' + events[i].title + //eslint-disable-line
+      const contentString = '<h2>' + events[i].title + '</h2>' +//eslint-disable-line
+                    '<h3><a href="' + events[i].url + '">Buy Tickets</a></h3>' +
                     '<br><b>Venue</b>: ' + events[i].venue_name +
-                    '<br><a href="' + events[i].url + '">More event information</a>' +
                     description; //eslint-disable-line
       pins.push({
         latlon: new google.maps.LatLng(events[i].latitude, events[i].longitude), //eslint-disable-line
         message: new google.maps.InfoWindow({ //eslint-disable-line
           content: contentString,
           maxWidth: 320,
+          maxHeight: 250,
         }),
         place: events.title,
         description: events.description,
@@ -91,7 +92,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div className="col-xs-12 text-center" id="map"> This div element contains map </div>
+      <div className="col-xs-8 " id="map"> This div element contains map </div>
       );
   }
 }

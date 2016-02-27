@@ -172,7 +172,7 @@ export class App extends Component {
     const options = {
       app_key: Key.eventful,
       location: city,
-      category: 'music',
+      // category: 'music',
       page_size: 20,
       date: dateRange,
     };
@@ -199,10 +199,12 @@ export class App extends Component {
         </div>
         <div className="app">
           <Search getQuery={ this.getQuery.bind(this) } />
-          <br/><br/>
-          <Map parentState={ this.state } />
           <br/>
-          <EventList data={ this.state.events } />
+          <br/>
+          <div className="col-xs-12">
+            <Map parentState={ this.state } />
+            <EventList data={ this.state.events } />
+          </div>
         </div>
       </container>
     );
