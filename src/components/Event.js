@@ -23,5 +23,6 @@ Event.propTypes = { data: React.PropTypes.object.isRequired };
 
 export default Event;
 
-// Removed the description from the events listing because it took up too much space. Would Like to re-implement this but use CSS to make it hidden so it could be expanded upon.
+// Removed the description from the events listing because it took up
+ // too much space.  use CSS to make it hidden so it could be expanded upon.
 //  <p>{ this.props.data.description }</p>

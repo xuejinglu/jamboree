@@ -48,7 +48,6 @@ class Map extends Component {
   renderPins(events, map) {
     const pins = [];
     for (let i = 0; i < events.length; i++) {
-      console.log(events[i]);
       let description;
       if (events[i].description) {
         description = '<br><b>Description</b>: ' + events[i].description + '</p>'; //eslint-disable-line
