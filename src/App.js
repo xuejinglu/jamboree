@@ -4,6 +4,7 @@ import Map from './components/Map';
 import Search from './components/Search';
 import Key from './config/apikeys';
 import EventList from './components/EventList';
+import Banner from './components/Banner';
 
 /*eslint-disable */
 const mapStyle = [
@@ -190,14 +191,9 @@ export class App extends Component {
   render() {
     return (
       <container>
-        <div id="banner-container">
-          <div className="banner">
-            FIND YOUR JAMBOREE
-          </div>
-          <div className="banner">BY CITY
-          </div>
-        </div>
+        <Banner />
         <div className="app">
+          <a name="mainApp"/>
           <Search getQuery={ this.getQuery.bind(this) } />
           <br/>
           <br/>
