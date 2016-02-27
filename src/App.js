@@ -173,7 +173,7 @@ export class App extends Component {
       where: city,
       q: 'music',
       page_size: 20,
-      sort_by: 'popularity',
+      sort_order: 'popularity',
       date: dateRange,
     };
     EVDB.API.call("/events/search", options, function (results) { //eslint-disable-line
