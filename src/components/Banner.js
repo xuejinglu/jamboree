@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-var Banner = () => (
+const Banner = () => (
   <div id="banner-container">
     <div className="banner">
-      <p>See what events are happening around you. Check out what's happening at local venues - find your Jamboree. </p>
+      <p>
+        See what events are happening around you.
+        Check out what's happening at local venues - find your Jamboree.
+      </p>
       <a href="#mainApp" className="jumpButton btn btn-primary">Get Started</a>
     </div>
   </div>

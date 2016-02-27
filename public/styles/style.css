@@ -44,7 +44,7 @@ article {
   background: url('../assets/city_bg.jpg');
   background-size: cover;
   font-weight: bold;
-  height: 800px;
+  height: 900px;
   text-align: center;
   position: relative;
   color: #00fde2;
@@ -52,7 +52,7 @@ article {
 }
 .banner a {
   position: absolute;
-  top: 250px;
+  top: 300px;
   width: 160px;
   height: 45px;
   left: 45%;
@@ -67,7 +67,7 @@ article {
   max-width: 100%;
   position: absolute;
   text-align: center;
-  top: 200px;
+  top: 250px;
 }
 
 .events-header {
