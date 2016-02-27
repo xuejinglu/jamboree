@@ -3,7 +3,7 @@ html, body {
   margin: 0;
   padding: 0;
   margin: auto;
-  /*background: #b3d9ff;*/
+  background: black;
 }
 
 h1 {
@@ -21,6 +21,7 @@ h1 {
   margin-top: 1em;
 }
 
+
 #banner-container {
   height: 100%;
   width: 100%;
@@ -29,7 +30,6 @@ h1 {
   background-repeat: no-repeat;
   bottom: 0;
   left: 0;
-  position: fixed;
   z-index: -1;
   right: 0;
   top: 0;
@@ -41,10 +41,33 @@ article {
 }
 
 .banner {
+  background: url('../assets/city_bg.jpg');
+  background-size: cover;
   font-weight: bold;
+  height: 800px;
   text-align: center;
-  font-size: 160px;
+  position: relative;
   color: #00fde2;
+  width: 100%;
+}
+.banner a {
+  position: absolute;
+  top: 250px;
+  width: 160px;
+  height: 45px;
+  left: 45%;
+  font-size: 1.6em;
+}
+.banner p {
+  background-color: #333333;
+  border: 1px solid white;
+  font-size: 2em;
+  opacity: 0.7;
+  margin: -100px 300px 0 300px;
+  max-width: 100%;
+  position: absolute;
+  text-align: center;
+  top: 200px;
 }
 
 .events-header {
@@ -59,7 +82,6 @@ article {
 #app {
   min-height: 100%;
   width: 100%;
-  top: 100%;
   background: #021019;
   position: absolute;
   margin: 10px;
