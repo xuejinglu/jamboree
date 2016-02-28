@@ -12,7 +12,10 @@ var EventSchema = new mongoose.Schema({
   eventList: {
     type: Array,
   },
+  lastModified: {
+    type: Date,
+    required: true,
+  },
 });
 
-
-
+module.exports = mongoose.model('events', EventSchema);
