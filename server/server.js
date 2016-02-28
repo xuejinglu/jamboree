@@ -1,10 +1,8 @@
 var express = require('express');
 var mongoose = require('mongoose');
-//var bodyParser = require('body-parser');
-
+var bodyParser = require('body-parser');
 
 var app = express();
-
 
 // app.use(bodyParser.urlencoded({extended: true}));
 // app.use(bodyParser.json());
@@ -17,8 +15,6 @@ app.use(express.static(__dirname + '/../public'));
 // app.get('/api/acct/logout', acctController.checkAuth);
 // app.post('/api/acct/addToList', acctController.addToList);
 // app.get('/api/acct/getLists', acctController.getLists);
-
-app.
 
 
 app.listen(8080);

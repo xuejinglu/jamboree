@@ -4,6 +4,9 @@ var Q = require('q');
 var findEvent = Q.nbind(Event.findOne, Event);
 var createEvent = Q.nbind(Event.create, Event);
 
+// This function is for optimization to allow auto-refreshing of event listings
+// var updateEvent= Q.nbind(Event.update, Event);
+
 module.exports = {
   // Queries DB for event document, if not found, queries eventful API
   getEvents: function(req, res, next) {
