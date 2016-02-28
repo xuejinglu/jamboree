@@ -41,8 +41,8 @@ export class App extends Component {
       sort_order: 'popularity',
       date: dateRange,
     };
-    EVDB.API.call("/events/search", options, function (results) { //eslint-disable-line
-      console.log("results", results);
+    EVDB.API.call('/events/search', options, function (results) { //eslint-disable-line
+      console.log('results', results);
       const eventList = results.events.event;
       this.setState({ events: results.events.event });
       this.setState({
