@@ -11,7 +11,7 @@ class EventList extends Component {
     return (
       <div className="col-xs-4">
         <section className="eventList">
-          <div className="events-header"> EVENTS </div>
+          <div className="events-header"></div>
           {this.props.data.map((event, i) =>
             <Event key={i} data={event} />
           )}
