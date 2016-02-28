@@ -12,6 +12,9 @@
     "url": "https://github.com/titrating-raspberries/greenfield.git"
   },
   "dependencies": {
+    "body-parser": "^1.15.0",
+    "mongoose": "^4.4.5",
+    "q": "^1.4.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
   },
