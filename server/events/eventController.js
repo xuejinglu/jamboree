@@ -5,7 +5,7 @@ var key = require('../keys/apikeys.js')
 var findEvent = Q.nbind(Event.findOne, Event);
 var createEvent = Q.nbind(Event.create, Event);
 var eventful = require('eventful-node');
-var client = new eventful.Client(key.Eventful);
+var client = new eventful.Client(key.eventful);
 
 // This function is for optimization to allow auto-refreshing of event listings
 // var updateEvent= Q.nbind(Event.update, Event);

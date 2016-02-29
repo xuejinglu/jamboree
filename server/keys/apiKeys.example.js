@@ -1,3 +1,3 @@
-export default {
+module.exports = {
   eventful: 'API_KEY',
 };
