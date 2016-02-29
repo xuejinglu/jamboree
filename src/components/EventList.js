@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Event from './event';
+import Event from './Event.js';
 
 class EventList extends Component {
   constructor(props) {
