@@ -39,6 +39,8 @@ export class App extends Component {
       page_size: 20,
       sort_order: 'popularity',
       date: dateRange,
+      within: 10,
+      units: 'miles',
     };
     $.ajax({
       url: '/api/events/getList',
