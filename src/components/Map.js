@@ -15,7 +15,7 @@ class Map extends Component {
     this.renderMap();
   }
 
-  getLatLng(props) {
+  getLatLng(props) { //eslint-disable-line
     return {
       lat: Number(props.parentState.lat),
       lng: Number(props.parentState.lng),
