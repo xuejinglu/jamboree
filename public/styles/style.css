@@ -95,6 +95,11 @@ article {
   overflow: scroll;
 }
 
+.mapError {
+  margin-left: 20px;
+  color: white;
+}
+
 #app {
   min-height: 100%;
   width: 100%;
