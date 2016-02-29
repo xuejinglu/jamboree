@@ -15,36 +15,33 @@ class Map extends Component {
     this.renderMap();
   }
 
-  shouldComponentUpdate(nextProps) {
-    const myLatLng = {
-      lat: Number(nextProps.parentState.lat),
-      lng: Number(nextProps.parentState.lng),
+  getLatLng(props) {
+    return {
+      lat: Number(props.parentState.lat),
+      lng: Number(props.parentState.lng),
     };
+  }
 
-    const map = new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
+  getMap(myLatLng) {
+    return new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
       zoom: 13,
       center: myLatLng,
       styles: this.props.parentState.mapStyle,
     });
+  }
 
+  shouldComponentUpdate(nextProps) {
+    const myLatLng = this.getLatLng(nextProps);
+    const map = this.getMap(myLatLng);
     this.renderPins(nextProps.parentState.events, map);
     return true;
   }
 
   renderMap() {
-    const myLatLng = {
-      lat: this.props.parentState.lat,
-      lng: this.props.parentState.lng,
-    };
-
-    const map = new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
-      zoom: 13,
-      center: myLatLng,
-      styles: this.props.parentState.mapStyle,
-    });
+    const myLatLng = this.getLatLng(this.props);
+    this.getMap(myLatLng);
   }
-  // events[i].(latitude, longitude, title,  venue_ name,
-  // venue_address, venue_url, url, city_name, region_abbr)
+
   renderPins(events, map) {
     const pins = [];
     for (let i = 0; i < events.length; i++) {
@@ -54,15 +51,15 @@ class Map extends Component {
       } else {
         description = '';
       }
-      const contentString = '<h2>' + events[i].title + '</h2>' +//eslint-disable-line
-                    '<h3><a href="' + events[i].url + '">Buy Tickets</a></h3>' +
+      const contentString = '<h3>' + events[i].title + '</h3>' +//eslint-disable-line
+                    '<h4><a href="' + events[i].url + '">Buy Tickets</a></h4>' +
                     '<br><b>Venue</b>: ' + events[i].venue_name +
                     description; //eslint-disable-line
       pins.push({
         latlon: new google.maps.LatLng(events[i].latitude, events[i].longitude), //eslint-disable-line
         message: new google.maps.InfoWindow({ //eslint-disable-line
           content: contentString,
-          maxWidth: 320,
+          maxWidth: 275,
           maxHeight: 250,
         }),
         place: events.title,
@@ -70,22 +67,21 @@ class Map extends Component {
       });
     }
     let currentSelectedMarker;
-    pins.forEach((n, i) => { //eslint-disable-line
-      // (linter --- i is declared but never used)
+    pins.forEach((pin) => { //eslint-disable-line
       let marker = new google.maps.Marker({ //eslint-disable-line
-        position: n.latlon,
+        position: pin.latlon,
         map: map, //eslint-disable-line
         title: 'Big Map',
         icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
       });
 
       // For each marker created, add a listener that checks for clicks
-      google.maps.event.addListener(marker, 'click', function (e){ //eslint-disable-line
+      google.maps.event.addListener(marker, 'click', function (){ //eslint-disable-line
         if (currentSelectedMarker) {
           currentSelectedMarker.message.close();
         }
-        currentSelectedMarker = n;
-        n.message.open(map, marker);
+        currentSelectedMarker = pin;
+        pin.message.open(map, marker);
       });
     });
   }

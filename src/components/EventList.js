@@ -9,8 +9,8 @@ class EventList extends Component {
 
   render() {
     return (
-      <div className="col-xs-4">
-        <section className="eventList">
+      <div className="col-xs-4 eventList">
+        <section>
           <div className="events-header"></div>
           {this.props.data.map((event, i) =>
             <Event key={i} data={event} />
