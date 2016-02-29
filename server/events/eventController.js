@@ -13,25 +13,19 @@ var client = new eventful.Client(key.eventful);
 module.exports = {
   // Queries DB for event document, if not found, queries eventful API
   getEvents: function(req, res, next) {
-    console.log("req.query OBJECT-----------------------------: ",req.query);
     Event.findOne({
       dateAndPlace: req.query.date+req.query.where,
     })
     .then(function(doc){
-      // console.log("DOC ---------------------> ", doc);
       if (doc) {
-        console.log("RESULT COMING FROM DATABASE");
         res.json(doc.eventList);
       } else {
-        console.log("ABOUT TO ENTER EVENTFUL API SEARCH");
         client.searchEvents(req.query,
           function(err, data){
-            // console.log("NOW INSIDE EVENTFUL API SEARCH");
             if (err) {
               console.error("Error received in client searchEvents:", err);
             } else {
               if (data) {
-                console.log("RETURNED DATA FROM EVENTFUL");
                 // data received from eventful API, return data to map, then store in db
                   // uses $currentDate to pull date and sets value of lastModified column
                   // $currentDate: {
@@ -42,20 +36,14 @@ module.exports = {
                   if(eventList[i].description) {
                     eventList[i].description = eventList[i].description.slice(0, 500) + '...';
                   }
-                  // var used = ['title', 'latitude', 'longitude'];
                   var used = ['title', 'venue_name', 'venue_address', 'city_name', 'region_abbr', 'url', 'latitude', 'longitude', 'description'];
                   for(var prop in eventList[i]) {
-                    // console.log('prop name is ', prop);
                     if(used.indexOf(prop) === -1){
-                      // console.log('deleting prop');
                       delete eventList[i][prop];
-                      // console.log('list of properties is ', Object.getOwnPropertyNames(eventList[i]));
                     }
                   }
                 }
 
-                // console.log('event array is ', eventList);
-                // console.log('EVENTLIST IS ------->', eventList);
                 Event.create({
                   dateAndPlace: req.query.date+req.query.where,
                   eventList: eventList,

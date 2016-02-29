@@ -33,7 +33,6 @@ export class App extends Component {
       const formattedEnd = end.split('-').join('');
       dateRange = dateRange + formattedEnd + '00'; //eslint-disable-line
     }
-      // app_key: Key.eventful,  THIS WAS REMOVED FROM OPTIONS
     const options = {
       where: city,
       q: 'music',
@@ -55,7 +54,6 @@ export class App extends Component {
           lat: eventList[Math.floor(eventList.length / 2)].latitude,
           lng: eventList[Math.floor(eventList.length / 2)].longitude,
         });
-        // console.log(JSON.parse(data.responseText));
       },
       error: (data) => {
         console.error('server AJAX failed to GET');
@@ -63,15 +61,6 @@ export class App extends Component {
         console.log(JSON.parse(data.responseText));
       },
     });
-    // EVDB.API.call('/events/search', options, function (results) { //eslint-disable-line
-    //   console.log('results', results);
-    //   const eventList = results.events.event;
-    //   this.setState({ events: results.events.event });
-    //   this.setState({
-    //     lat: eventList[Math.floor(eventList.length / 2)].latitude,
-    //     lng: eventList[Math.floor(eventList.length / 2)].longitude,
-    //   });
-    // }.bind(this)); // eslint-disable-line
   }
 
   /*eslint-disable */
