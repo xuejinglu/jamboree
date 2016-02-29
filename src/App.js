@@ -49,7 +49,7 @@ export class App extends Component {
       success: (data) => {
         console.log('call to server successful');
         console.log(data);
-        const eventList = data.search.events.event;
+        const eventList = data;
         this.setState({ events: eventList });
         this.setState({
           lat: eventList[Math.floor(eventList.length / 2)].latitude,
@@ -93,7 +93,6 @@ export class App extends Component {
     );
   }
   /*eslint-enable */
-
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
