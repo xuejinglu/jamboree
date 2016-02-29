@@ -82,7 +82,7 @@ export class App extends Component {
           <br/>
           <br/>
           <div className="col-xs-12">
-          <h4 className="mapError">{ this.state.fail ? 'There are no events for this time and place.' : ''}</h4>
+          <h4 className="mapError">{ this.state.fail ? 'There are no events for this time and place. Please try again' : ''}</h4>
             <Map parentState={ this.state } />
             <EventList data={ this.state.events } />
           </div>
