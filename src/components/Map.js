@@ -15,36 +15,35 @@ class Map extends Component {
     this.renderMap();
   }
 
-  shouldComponentUpdate(nextProps) {
+  getLatLng() {
     const myLatLng = {
       lat: Number(nextProps.parentState.lat),
       lng: Number(nextProps.parentState.lng),
     };
+    return myLatLng;
+  }
 
+  getMap() {
     const map = new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
       zoom: 13,
       center: myLatLng,
       styles: this.props.parentState.mapStyle,
     });
+    return map;
+  }
 
+  shouldComponentUpdate(nextProps) {
+    getLatLng();
+    getMap();
     this.renderPins(nextProps.parentState.events, map);
     return true;
   }
 
   renderMap() {
-    const myLatLng = {
-      lat: this.props.parentState.lat,
-      lng: this.props.parentState.lng,
-    };
-
-    const map = new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
-      zoom: 13,
-      center: myLatLng,
-      styles: this.props.parentState.mapStyle,
-    });
+    getLatLng();
+    getMap();
   }
-  // events[i].(latitude, longitude, title,  venue_ name,
-  // venue_address, venue_url, url, city_name, region_abbr)
+
   renderPins(events, map) {
     const pins = [];
     for (let i = 0; i < events.length; i++) {
@@ -70,22 +69,21 @@ class Map extends Component {
       });
     }
     let currentSelectedMarker;
-    pins.forEach((n, i) => { //eslint-disable-line
-      // (linter --- i is declared but never used)
+    pins.forEach((pin) => { //eslint-disable-line
       let marker = new google.maps.Marker({ //eslint-disable-line
-        position: n.latlon,
+        position: pin.latlon,
         map: map, //eslint-disable-line
         title: 'Big Map',
         icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
       });
 
       // For each marker created, add a listener that checks for clicks
-      google.maps.event.addListener(marker, 'click', function (e){ //eslint-disable-line
+      google.maps.event.addListener(marker, 'click', function (){ //eslint-disable-line
         if (currentSelectedMarker) {
           currentSelectedMarker.message.close();
         }
-        currentSelectedMarker = n;
-        n.message.open(map, marker);
+        currentSelectedMarker = pin;
+        pin.message.open(map, marker);
       });
     });
   }
