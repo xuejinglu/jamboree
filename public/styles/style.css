@@ -77,6 +77,8 @@ article {
 
 .eventList {
   color: #00fde2;
+  height: 800px;
+  overflow: scroll;
 }
 
 #app {
