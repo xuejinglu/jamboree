@@ -8,13 +8,13 @@ class Event extends Component {
 
   render() {
     return (
-      <article>
-        <h4>{ this.props.data.title }</h4>
-        <h5>{ this.props.data.venue_name }</h5>
-        <h6>{ this.props.data.venue_address}
-          <br/> { this.props.data.city_name} , { this.props.data.region_abbr}
-        </h6>
-      </article>
+        <article>
+          <h4>{ this.props.data.title }</h4>
+          <div>
+            <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"></img>
+            <h5>{ this.props.data.venue_name }</h5>
+          </div>
+        </article>
     );
   }
 }

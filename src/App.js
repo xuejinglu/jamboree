@@ -49,7 +49,7 @@ export class App extends Component {
       contentType: 'application/json',
       success: (data) => {
         console.log('call to server successful');
-        console.log(data);
+        // console.log(data);
         const eventList = data;
         this.setState({ events: eventList });
         this.setState({
