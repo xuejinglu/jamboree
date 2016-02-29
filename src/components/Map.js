@@ -15,10 +15,17 @@ class Map extends Component {
     this.renderMap();
   }
 
-  getLatLng() {
+  shouldComponentUpdate(nextProps) {
+    getLatLng(nextProps);
+    getMap(nextProps);
+    this.renderPins(nextProps.parentState.events, map);
+    return true;
+  }
+
+  getLatLng(props) {
     const myLatLng = {
-      lat: Number(nextProps.parentState.lat),
-      lng: Number(nextProps.parentState.lng),
+      lat: Number(props.parentState.lat),
+      lng: Number(props.parentState.lng),
     };
     return myLatLng;
   }
@@ -32,16 +39,9 @@ class Map extends Component {
     return map;
   }
 
-  shouldComponentUpdate(nextProps) {
-    getLatLng();
-    getMap();
-    this.renderPins(nextProps.parentState.events, map);
-    return true;
-  }
-
   renderMap() {
-    getLatLng();
-    getMap();
+    getLatLng(this.props);
+    getMap(this.props);
   }
 
   renderPins(events, map) {
