@@ -13,17 +13,19 @@ var client = new eventful.Client(key.eventful);
 module.exports = {
   // Queries DB for event document, if not found, queries eventful API
   getEvents: function(req, res, next) {
+    req.query.where = req.query.where.toUpperCase();
     Event.findOne({
-      dateAndPlace: req.query.date+req.query.where,
+      dateAndPlace: req.query.date + req.query.where,
     })
     .then(function(doc){
       if (doc) {
+        console.log("retrieving from database...");
         res.json(doc.eventList);
       } else {
         client.searchEvents(req.query,
           function(err, data){
             if (err) {
-              console.error("Error received in client searchEvents:", err);
+              console.error("Error received in searchEvents:", err);
             } else {
               if (data) {
                 // data received from eventful API, return data to map, then store in db
@@ -53,8 +55,7 @@ module.exports = {
                   } else {
                     console.log('LIST ADDED');
                   }
-                res.send(data.search.events.event); // Is this JSON?
-                res.end(); // Do we need to send anything in the res.end?
+                res.json(eventList);
                 });
               }
             }

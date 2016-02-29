@@ -10,6 +10,7 @@ var EventSchema = new mongoose.Schema({
   eventList: {
     type: Object,
     require: true,
+    unique: false,
   },
 });
   // optimization feature: set up auto-refreshing of cached events based on lastModified date
