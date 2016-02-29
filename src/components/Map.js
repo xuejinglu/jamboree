@@ -51,8 +51,8 @@ class Map extends Component {
       } else {
         description = '';
       }
-      const contentString = '<h2>' + events[i].title + '</h2>' +//eslint-disable-line
-                    '<h3><a href="' + events[i].url + '">Buy Tickets</a></h3>' +
+      const contentString = '<h3>' + events[i].title + '</h3>' +//eslint-disable-line
+                    '<h4><a href="' + events[i].url + '">Buy Tickets</a></h4>' +
                     '<br><b>Venue</b>: ' + events[i].venue_name +
                     description; //eslint-disable-line
       pins.push({
