@@ -55,8 +55,7 @@ module.exports = {
                   } else {
                     console.log('LIST ADDED');
                   }
-                res.send(data.search.events.event); // Is this JSON?
-                res.end(); // Do we need to send anything in the res.end?
+                res.json(eventList);
                 });
               }
             }
