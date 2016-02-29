@@ -2,9 +2,9 @@ var Event = require('./eventModel.js');
 var Q = require('q');
 var key = require('../keys/apikeys.js')
 
+var eventful = require('eventful-node');
 var findEvent = Q.nbind(Event.findOne, Event);
 var createEvent = Q.nbind(Event.create, Event);
-var eventful = require('eventful-node');
 var client = new eventful.Client(key.eventful);
 
 // This function is for optimization to allow auto-refreshing of event listings
@@ -35,16 +35,22 @@ module.exports = {
               if (data) {
                 console.log("RETURNED DATA FROM EVENTFUL IS:", data);
                 // data received from eventful API, return data to map, then store in db
-                res.send(data); // Is this JSON?
                 createEvent({
-                  location: req.params.location,
-                  date: req.params.date,
-                  eventList: data,
+                  location: req.query.location,
+                  date: req.query.date,
+                  eventList: data.search.events.event,
                   // uses $currentDate to pull date and sets value of lastModified column
                   $currentDate: {
                     lastModified: true,
                   },
+                }, function (err, list){
+                  if (err){
+                    console.log("ERROR: ", err);
+                  } else {
+                    console.log('added list length is ', list.length);
+                  }
                 });
+                res.send(data); // Is this JSON?
                 res.end(); // Do we need to send anything in the res.end?
               }
             }
