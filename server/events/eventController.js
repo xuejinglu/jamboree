@@ -13,45 +13,49 @@ var client = new eventful.Client(key.eventful);
 module.exports = {
   // Queries DB for event document, if not found, queries eventful API
   getEvents: function(req, res, next) {
-    //console.log("REQ OBJECT-----------------------------: ",req);
-    console.log("req.query OBJECT-----------------------------: ",req.query);
-    findEvent({
-      location: req.query.location,
-      date: req.query.date,
+    Event.findOne({
+      dateAndPlace: req.query.date+req.query.where,
     })
     .then(function(doc){
-      console.log("DOC ---------------------> ", doc);
       if (doc) {
-        "RESULT COMING FROM DATABASE";
-        res.json(doc);
+        res.json(doc.eventList);
       } else {
-        console.log("ABOUT TO ENTER EVENTFUL API SEARCH");
         client.searchEvents(req.query,
           function(err, data){
-            // console.log("NOW INSIDE EVENTFUL API SEARCH");
             if (err) {
               console.error("Error received in client searchEvents:", err);
             } else {
               if (data) {
-                console.log("RETURNED DATA FROM EVENTFUL IS:", data);
                 // data received from eventful API, return data to map, then store in db
-                createEvent({
-                  location: req.query.location,
-                  date: req.query.date,
-                  eventList: data.search.events.event,
                   // uses $currentDate to pull date and sets value of lastModified column
-                  $currentDate: {
-                    lastModified: true,
-                  },
+                  // $currentDate: {
+                  //   lastModified: true,
+                  // },
+                var eventList = data.search.events.event;
+                for(var i = 0; i < eventList.length || 0; i++){
+                  if(eventList[i].description) {
+                    eventList[i].description = eventList[i].description.slice(0, 500) + '...';
+                  }
+                  var used = ['title', 'venue_name', 'venue_address', 'city_name', 'region_abbr', 'url', 'latitude', 'longitude', 'description'];
+                  for(var prop in eventList[i]) {
+                    if(used.indexOf(prop) === -1){
+                      delete eventList[i][prop];
+                    }
+                  }
+                }
+
+                Event.create({
+                  dateAndPlace: req.query.date+req.query.where,
+                  eventList: eventList,
                 }, function (err, list){
                   if (err){
                     console.log("ERROR: ", err);
                   } else {
-                    console.log('added list length is ', list.length);
+                    console.log('LIST ADDED');
                   }
-                });
-                res.send(data); // Is this JSON?
+                res.send(data.search.events.event); // Is this JSON?
                 res.end(); // Do we need to send anything in the res.end?
+                });
               }
             }
         });
