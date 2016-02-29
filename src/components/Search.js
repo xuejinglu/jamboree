@@ -1,37 +1,44 @@
-/* eslint-disable react/jsx-no-bind */
 import React from 'react';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+
+    };
   }
 
-  changePlace(e) {
-    e.preventDefault();
-    this.props.getQuery(this.refs.where.value, this.refs.when.value);
+  getInput() {
+    this.props.getQuery(this.refs.city.value, this.refs.start.value, this.refs.end.value);
   }
 
-  changeDate(e) {
-    e.preventDefault();
-    this.props.getQuery(this.refs.where.value, this.refs.when.value);
-  }
-
+  /*eslint-disable */
   render() {
     return (
       <div className="search">
-        <form id="where" onSubmit={e => this.changePlace(e)}>
-          <input type="text" ref="where" />
-        </form>
-        <div id="when">
-          <button value="-1" onClick={e => this.changeDate(e)}>&#9664;</button>
-          <form onSubmit={e => this.changeDate(e)}>
-            <input type="date" ref="when" />
-          </form>
-          <button value="1" onClick={e => this.changeDate(e)}>&#9654;</button>
+        <div className="form-group">
+          <div className="col-xs-3">
+            <label htmlFor="city">Enter a city or zipcode:</label>
+            <input type="string" className="form-control" ref="city"/>
+          </div>
+          <div className="col-xs-3">
+            <label htmlFor="start">Enter start date</label>
+            <input type="date" className="form-control" ref="start" />
+          </div>
+          <div className="col-xs-3">
+            <label htmlFor="end">Enter end date (optional)</label>
+            <input type="date" className="form-control" ref="end" />
+          </div>
+          <div className="col-xs-1">
+          <button type="submit" className="btn btn-info submitbutton"
+            onClick={this.getInput.bind(this)}> Start Search
+          </button>
+          </div>
         </div>
       </div>
     );
   }
+  /*eslint-enable */
 }
 
 Search.propTypes = {
