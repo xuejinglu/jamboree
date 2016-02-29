@@ -21,6 +21,7 @@ export class App extends Component {
       lat: 37.7833,
       lng: -122.4167,
       mapStyle: mapStyle, //eslint-disable-line
+      fail: false,
     };
   }
 
@@ -48,14 +49,19 @@ export class App extends Component {
       data: options,
       contentType: 'application/json',
       success: (data) => {
+        this.setState({ fail: false });
         console.log('call to server successful');
         // console.log(data);
-        const eventList = data;
-        this.setState({ events: eventList });
-        this.setState({
-          lat: eventList[Math.floor(eventList.length / 2)].latitude,
-          lng: eventList[Math.floor(eventList.length / 2)].longitude,
-        });
+        if (data) {
+          const eventList = data;
+          this.setState({ events: eventList });
+          this.setState({
+            lat: eventList[Math.floor(eventList.length / 2)].latitude,
+            lng: eventList[Math.floor(eventList.length / 2)].longitude,
+          });
+        } else {
+          this.setState({ fail: true });
+        }
       },
       error: (data) => {
         console.error('server AJAX failed to GET');
@@ -76,6 +82,7 @@ export class App extends Component {
           <br/>
           <br/>
           <div className="col-xs-12">
+          <h4 className="mapError">{ this.state.fail ? 'There are no events for this time and place.' : ''}</h4>
             <Map parentState={ this.state } />
             <EventList data={ this.state.events } />
           </div>
