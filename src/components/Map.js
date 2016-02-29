@@ -66,7 +66,7 @@ class Map extends Component {
         description: events.description,
       });
     }
-    var bounds = new google.maps.LatLngBounds();
+    let bounds = new google.maps.LatLngBounds(); //eslint-disable-line
     let currentSelectedMarker;
     pins.forEach((pin) => { //eslint-disable-line
       let marker = new google.maps.Marker({ //eslint-disable-line
@@ -76,9 +76,9 @@ class Map extends Component {
         icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
       });
 
-      if(marker.getVisible()) {
-            bounds.extend( marker.getPosition() );
-        }
+      if (marker.getVisible()) {
+        bounds.extend(marker.getPosition());
+      }
 
       // For each marker created, add a listener that checks for clicks
       google.maps.event.addListener(marker, 'click', function (){ //eslint-disable-line
