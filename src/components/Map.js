@@ -15,13 +15,6 @@ class Map extends Component {
     this.renderMap();
   }
 
-  shouldComponentUpdate(nextProps) {
-    const myLatLng = getLatLng(nextProps);
-    const map = getMap(nextProps);
-    this.renderPins(nextProps.parentState.events, map);
-    return true;
-  }
-
   getLatLng(props) {
     return {
       lat: Number(props.parentState.lat),
@@ -29,7 +22,7 @@ class Map extends Component {
     };
   }
 
-  getMap() {
+  getMap(myLatLng) {
     return new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
       zoom: 13,
       center: myLatLng,
@@ -37,9 +30,16 @@ class Map extends Component {
     });
   }
 
+  shouldComponentUpdate(nextProps) {
+    const myLatLng = this.getLatLng(nextProps);
+    const map = this.getMap(myLatLng);
+    this.renderPins(nextProps.parentState.events, map);
+    return true;
+  }
+
   renderMap() {
-    getLatLng(this.props);
-    getMap(this.props);
+    const myLatLng = this.getLatLng(this.props);
+    this.getMap(myLatLng);
   }
 
   renderPins(events, map) {
@@ -59,7 +59,7 @@ class Map extends Component {
         latlon: new google.maps.LatLng(events[i].latitude, events[i].longitude), //eslint-disable-line
         message: new google.maps.InfoWindow({ //eslint-disable-line
           content: contentString,
-          maxWidth: 320,
+          maxWidth: 275,
           maxHeight: 250,
         }),
         place: events.title,
