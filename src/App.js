@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Map from './components/Map';
 import Search from './components/Search';
-import Key from './config/apikeys';
 import EventList from './components/EventList';
 import Banner from './components/Banner';
 import $ from 'jquery';
@@ -56,7 +55,7 @@ export class App extends Component {
           lat: eventList[Math.floor(eventList.length / 2)].latitude,
           lng: eventList[Math.floor(eventList.length / 2)].longitude,
         });
-        //console.log(JSON.parse(data.responseText));
+        // console.log(JSON.parse(data.responseText));
       },
       error: (data) => {
         console.error('server AJAX failed to GET');
