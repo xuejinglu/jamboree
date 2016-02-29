@@ -16,27 +16,25 @@ class Map extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    getLatLng(nextProps);
-    getMap(nextProps);
+    const myLatLng = getLatLng(nextProps);
+    const map = getMap(nextProps);
     this.renderPins(nextProps.parentState.events, map);
     return true;
   }
 
   getLatLng(props) {
-    const myLatLng = {
+    return {
       lat: Number(props.parentState.lat),
       lng: Number(props.parentState.lng),
     };
-    return myLatLng;
   }
 
   getMap() {
-    const map = new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
+    return new google.maps.Map(document.getElementById('map'), { //eslint-disable-line
       zoom: 13,
       center: myLatLng,
       styles: this.props.parentState.mapStyle,
     });
-    return map;
   }
 
   renderMap() {
