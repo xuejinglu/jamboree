@@ -9,21 +9,16 @@ class Search extends React.Component {
   }
 
   getInput() {
+    var testChecks = (cat) => {
+      if (cat.checked){
+        cats.push(cat.value);
+      }
+    }
     var cats = [];
-    if (this.refs.music.checked){
-      cats.push(this.refs.music.value);
-    }
-    if (this.refs.singles.checked){
-      cats.push(this.refs.singles.value);
-    }
-    if (this.refs.performing.checked){
-      cats.push(this.refs.performing.value);
-    }
-
+    testChecks(this.refs.music.checked);
+    testChecks(this.refs.singles.checked);
+    testChecks(this.refs.performing.checked);
     var catStr = cats.join(',');
-
-    console.log("catStr is :",catStr);
-
     this.props.getQuery(this.refs.city.value, this.refs.start.value, this.refs.end.value, catStr);
   }
 
