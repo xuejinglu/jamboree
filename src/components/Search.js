@@ -9,7 +9,7 @@ class Search extends React.Component {
   }
 
   getInput() {
-    let cats = [];
+    const cats = [];
     const testChecks = (cat) => {
       if (cat.checked) {
         cats.push(cat.value);
