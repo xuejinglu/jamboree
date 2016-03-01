@@ -15,10 +15,11 @@ class Search extends React.Component {
       }
     }
     var cats = [];
-    testChecks(this.refs.music.checked);
-    testChecks(this.refs.singles.checked);
-    testChecks(this.refs.performing.checked);
+    testChecks(this.refs.music);
+    testChecks(this.refs.singles);
+    testChecks(this.refs.performing);
     var catStr = cats.join(',');
+    console.log('catStr in Search is :', catStr);
     this.props.getQuery(this.refs.city.value, this.refs.start.value, this.refs.end.value, catStr);
   }
 

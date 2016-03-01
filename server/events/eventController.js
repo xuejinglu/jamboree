@@ -12,7 +12,7 @@ module.exports = {
   getEvents: function(req, res, next) {
     req.query.where = req.query.where.toUpperCase();
     Event.findOne({
-      dateAndPlace: req.query.date + req.query.where,
+      dateAndPlace: req.query.date + req.query.where + req.query.q,
     })
     .then(function(doc){
       if (doc) {
@@ -47,13 +47,13 @@ module.exports = {
                   }
 
                   Event.create({
-                    dateAndPlace: req.query.date+req.query.where,
+                    dateAndPlace: req.query.date + req.query.where + req.query.q,
                     eventList: eventList,
                   }, function (err, list){
                     if (err){
                       console.log("ERROR: ", err);
                     } else {
-                      console.log('LIST ADDED');
+                      console.log('List Added');
                     }
                   res.json(eventList);
                   });

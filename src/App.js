@@ -34,6 +34,7 @@ export class App extends Component {
       const formattedEnd = end.split('-').join('');
       dateRange = dateRange + formattedEnd + '00'; //eslint-disable-line
     }
+    console.log('cats are : ', catStr);
     const options = {
       where: city,
       q: catStr,
