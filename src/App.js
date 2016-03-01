@@ -25,7 +25,7 @@ export class App extends Component {
     };
   }
 
-  getQuery(city, start, end) {
+  getQuery(city, start, end, catStr) { //eslint-disable-line
     const formattedStart = start.split('-').join('');
     let dateRange = formattedStart + '00-'; //eslint-disable-line
     if (!end) {
@@ -34,13 +34,14 @@ export class App extends Component {
       const formattedEnd = end.split('-').join('');
       dateRange = dateRange + formattedEnd + '00'; //eslint-disable-line
     }
+    console.log('cats are : ', catStr);
     const options = {
       where: city,
-      q: 'music',
+      q: catStr,
       page_size: 20,
       sort_order: 'popularity',
       date: dateRange,
-      within: 10,
+      within: 7,
       units: 'miles',
     };
     $.ajax({
