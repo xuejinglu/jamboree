@@ -25,14 +25,14 @@ export class App extends Component {
     };
   }
 
-  getQuery(city, start, end, catStr) {
+  getQuery(city, start, end, catStr) { //eslint-disable-line
     const formattedStart = start.split('-').join('');
-    let dateRange = formattedStart + '00-'; //eslint-disable-line
+    let dateRange = formattedStart + '00-';
     if (!end) {
-      dateRange = dateRange + formattedStart + '00'; //eslint-disable-line
+      dateRange = dateRange + formattedStart + '00';
     } else {
       const formattedEnd = end.split('-').join('');
-      dateRange = dateRange + formattedEnd + '00'; //eslint-disable-line
+      dateRange = dateRange + formattedEnd + '00';
     }
     console.log('cats are : ', catStr);
     const options = {
