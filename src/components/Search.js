@@ -9,12 +9,12 @@ class Search extends React.Component {
   }
 
   getInput() {
-    var cats = [];
+    let cats = [];
     const testChecks = (cat) => {
       if (cat.checked) {
         cats.push(cat.value);
-      };
-    }
+      }
+    };
     testChecks(this.refs.music);
     testChecks(this.refs.singles);
     testChecks(this.refs.performing);

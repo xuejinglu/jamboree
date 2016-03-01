@@ -27,12 +27,12 @@ export class App extends Component {
 
   getQuery(city, start, end, catStr) { //eslint-disable-line
     const formattedStart = start.split('-').join('');
-    let dateRange = formattedStart + '00-';
+    let dateRange = formattedStart + '00-'; //eslint-disable-line
     if (!end) {
-      dateRange = dateRange + formattedStart + '00';
+      dateRange = dateRange + formattedStart + '00'; //eslint-disable-line
     } else {
       const formattedEnd = end.split('-').join('');
-      dateRange = dateRange + formattedEnd + '00';
+      dateRange = dateRange + formattedEnd + '00'; //eslint-disable-line
     }
     console.log('cats are : ', catStr);
     const options = {
