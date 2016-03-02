@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var eventController = require('./events/eventController.js');
 var morgan = require('morgan');
 
+const PORT = 3000;
+
 var app = express();
 
 app.use(morgan('dev'));
@@ -21,8 +23,8 @@ app.use(express.static(__dirname + '/../public/'));
 app.get('/api/events/getList', eventController.getEvents);
 
 
-console.log( 'listening on 8080' );
-app.listen( 8080 );
+console.log( 'listening on', PORT );
+app.listen( PORT );
 
 
 module.exports = app;
