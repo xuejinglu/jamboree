@@ -4,6 +4,8 @@ import Map from './components/Map';
 import Search from './components/Search';
 import EventList from './components/EventList';
 import Banner from './components/Banner';
+import getYouTube from './utils/youtube.js';
+import keys from './config/apikeys.js';
 import $ from 'jquery';
 
 /*eslint-disable */
@@ -14,6 +16,7 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      video: { id: { videoId: '' }, snippet: { title: '' } },
       map: null,
       events: [],
       // events[i].(latitude, longitude, title,  venue_ name,
@@ -56,6 +59,7 @@ export class App extends Component {
         if (data) {
           const eventList = data;
           this.setState({ events: eventList });
+          this.searchYouTube(eventList[0].title, this.handleVideoChange.bind(this));
           this.setState({
             lat: eventList[Math.floor(eventList.length / 2)].latitude,
             lng: eventList[Math.floor(eventList.length / 2)].longitude,
@@ -72,6 +76,24 @@ export class App extends Component {
     });
   }
 
+  searchYouTube(search, callback) {
+    const options = {
+      query: search,
+      max: 1,
+      key: keys.google,
+    };
+    getYouTube(options, (data) => {
+      callback(data.items[0]);
+    });
+  }
+
+  handleVideoChange(video) {
+    console.log(video);
+    this.setState({
+      video,
+    });
+  }
+
   /*eslint-disable */
   render() {
     return (
@@ -79,13 +101,15 @@ export class App extends Component {
         <Banner />
         <div className="app">
           <a name="mainApp"/>
-          <Search getQuery={ this.getQuery.bind(this) } />
+          <div className="col-xs-12">
+            <Search getQuery={ this.getQuery.bind(this) } />
+          </div>
           <br/>
           <br/>
           <div className="col-xs-12">
           <h4 className="mapError">{ this.state.fail ? 'There are no events for this time and place. Please try again' : ''}</h4>
             <Map parentState={ this.state } />
-            <EventList data={ this.state.events } />
+            <EventList data={ this.state.events } video={ this.state.video }/>
           </div>
         </div>
       </container>

@@ -25,6 +25,10 @@ h5 {
   color: white;
 }
 
+.videoPlayer {
+  height: 300px;
+}
+
 .search {
   color: #00fde2;
   margin: 5px 10% 20px 10%;
