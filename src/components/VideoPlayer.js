@@ -2,13 +2,15 @@ import React from 'react';
 
 var VideoPlayer = ( props ) => (
   <div className="videoPlayer">
-    <div className="embedResponsive">
-      <iframe className="embedResponsiveItem" 
+    <div className="embed-responsive">
+      <iframe className="embed-responsive-item" 
       src={`https://www.youtube.com/embed/${props.video.id.videoId}?autoplay=1`} 
       allowFullScreen></iframe>
-    </div>
-    <div className="videoPlayerDetails">
-      <h3>{props.video.snippet.title}</h3>
+
+      <div className="video-player-details">
+        <h3>{props.video.snippet.title}</h3>
+        <div>{props.video.snippet.description}</div>
+      </div>
     </div>
   </div>
 );

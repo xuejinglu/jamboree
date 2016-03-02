@@ -4,6 +4,8 @@ import Map from './components/Map';
 import Search from './components/Search';
 import EventList from './components/EventList';
 import Banner from './components/Banner';
+import getYouTube from './utils/youtube.js';
+import keys from './config/apikeys.js';
 import $ from 'jquery';
 
 /*eslint-disable */
@@ -71,6 +73,24 @@ export class App extends Component {
         console.log(JSON.parse(data.responseText));
       },
     });
+  }
+
+  handleVideoChange( video ) {
+    this.setState({
+      video: video
+    });
+  }
+
+  componentDidMount() {
+    var searchCB = ( data ) => {
+      handleVideoChange( data.items[0] );
+    };
+    var options = {
+      query: this.state.events[0].title,
+      max: 1,
+      key: keys.google
+    };
+    getYouTube( options, searchCB );
   }
 
   /*eslint-disable */

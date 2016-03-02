@@ -1,4 +1,6 @@
-export default function searchYouTube ( options, callback ) => {
+import $ from 'jquery';
+
+export default function ( options, callback ) {
   const URL = 'https://www.googleapis.com/youtube/v3/search';
   $.ajax( {
     url: URL,
