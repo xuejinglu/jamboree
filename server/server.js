@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var eventController = require('./events/eventController.js');
 var morgan = require('morgan');
 
-const PORT = 3000;
+const PORT = 8080;
 
 var app = express();
 
