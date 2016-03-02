@@ -4,6 +4,7 @@ import Map from './components/Map';
 import Search from './components/Search';
 import EventList from './components/EventList';
 import Banner from './components/Banner';
+import VideoPlayer from './components/VideoPlayer';
 import $ from 'jquery';
 
 /*eslint-disable */
@@ -14,6 +15,7 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      video: {id: {videoId: ''}, snippet: {title: 'Please Stand By', description: ':)'} },
       map: null,
       events: [],
       // events[i].(latitude, longitude, title,  venue_ name,
@@ -79,7 +81,10 @@ export class App extends Component {
         <Banner />
         <div className="app">
           <a name="mainApp"/>
-          <Search getQuery={ this.getQuery.bind(this) } />
+          <div className = "col-xs-12">
+            <Search getQuery={ this.getQuery.bind(this) } />
+            <VideoPlayer video={ this.state.video }/>
+          </div>
           <br/>
           <br/>
           <div className="col-xs-12">
