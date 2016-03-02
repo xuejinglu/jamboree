@@ -21,7 +21,8 @@ app.use(express.static(__dirname + '/../public/'));
 app.get('/api/events/getList', eventController.getEvents);
 
 
-app.listen(8080);
+console.log( 'listening on 8080' );
+app.listen( 8080 );
 
 
 module.exports = app;
