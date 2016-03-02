@@ -35,7 +35,6 @@ export class App extends Component {
   }
 
   getQuery(city, start, end, catStr) { //eslint-disable-line
-    console.log('getQuery', city, start, end, catStr);
     const formattedStart = start.split('-').join('');
     let dateRange = formattedStart + '00-'; //eslint-disable-line
     if (!end) {
