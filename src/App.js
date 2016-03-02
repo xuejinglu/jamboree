@@ -16,7 +16,7 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      video: {id: {videoId: ''}, snippet: {title: 'Please Stand By :)'} },
+      video: {id: {videoId: 'M7lc1UVf-VE'}, snippet: {title: 'Please Stand By :)'} },
       map: null,
       events: [],
       // events[i].(latitude, longitude, title,  venue_ name,
