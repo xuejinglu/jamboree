@@ -19,18 +19,16 @@ export class App extends Component {
     this.state = {
       map: null,
       events: [],
-      // events[i].(latitude, longitude, title,  venue_ name,
-      // venue_address, venue_url, url, city_name, region_abbr)
-      lat: 37.7833,
-      lng: -122.4167,
       mapStyle: mapStyle, //eslint-disable-line
       fail: false,
     };
   }
 
   componentDidMount() {
-    const today = getdate();
-    getloc( (currlocation) => {
+    // gets the date from utils/getdate
+    const today = getdate('yyyy-mm-dd');
+    // gets loc from utils/getloc
+    getloc((currlocation) => {
       // call getQuery on loc and date
       this.getQuery(currlocation, today, today, 'music');
     });
