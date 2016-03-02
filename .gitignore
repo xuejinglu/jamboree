@@ -15,3 +15,4 @@ public/app.js
 
 # Keys
 apiKeys.js
+src/config/apiKeys.js
