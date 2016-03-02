@@ -28,19 +28,19 @@ export class App extends Component {
   componentDidMount() {
     // get the current location (zipcode)
     // get the current date
-    var Today = new Date();
-     var dd = Today.getDate();
-     var mm = Today.getMonth()+1; //January is 0!
+    let Today = new Date();
+    let dd = Today.getDate();
+    let mm = Today.getMonth()+1; //January is 0!
 
-     var yyyy = Today.getFullYear();
-     if(dd<10){
-         dd='0'+dd
-     }
-     if(mm<10){
-         mm='0'+mm
-     }
-     var today = dd+'-'+mm+'-'+yyyy;
-     today = today.toString();
+    let yyyy = Today.getFullYear();
+    if ( dd<10 ) {
+      dd='0'+dd
+    }
+    if ( mm<10 ) {
+      mm= '0' + mm
+    }
+    let today = dd + '-' + mm + '-' + yyyy;
+    today = today.toString();
     // set state to loc and date
     this.getQuery('nyc', today, null, 'music');
   }
