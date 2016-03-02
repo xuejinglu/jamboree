@@ -5,9 +5,9 @@ import Event from './Event.js';
 class EventList extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       events: this.props.data,
-      video: this.props.video
+      video: this.props.video,
     };
   }
 

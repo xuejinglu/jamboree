@@ -16,7 +16,7 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      video: {id: {videoId: ''}, snippet: {title: ''} },
+      video: { id: { videoId: '' }, snippet: { title: '' } },
       map: null,
       events: [],
       // events[i].(latitude, longitude, title,  venue_ name,
@@ -59,7 +59,7 @@ export class App extends Component {
         if (data) {
           const eventList = data;
           this.setState({ events: eventList });
-          this.searchYouTube( eventList[0].title, this.handleVideoChange.bind( this ) );
+          this.searchYouTube(eventList[0].title, this.handleVideoChange.bind(this));
           this.setState({
             lat: eventList[Math.floor(eventList.length / 2)].latitude,
             lng: eventList[Math.floor(eventList.length / 2)].longitude,
@@ -76,21 +76,21 @@ export class App extends Component {
     });
   }
 
-  searchYouTube( search, callback ) {
-    var options = {
+  searchYouTube(search, callback) {
+    const options = {
       query: search,
       max: 1,
-      key: keys.google
+      key: keys.google,
     };
-    getYouTube( options, ( data ) => {
-      callback( data.items[0] );
-    } );
+    getYouTube(options, (data) => {
+      callback(data.items[0]);
+    });
   }
 
-  handleVideoChange( video ) {
-    console.log( video );
+  handleVideoChange(video) {
+    console.log(video);
     this.setState({
-      video: video
+      video,
     });
   }
 
@@ -101,7 +101,7 @@ export class App extends Component {
         <Banner />
         <div className="app">
           <a name="mainApp"/>
-          <div className = "col-xs-12">
+          <div className="col-xs-12">
             <Search getQuery={ this.getQuery.bind(this) } />
           </div>
           <br/>
