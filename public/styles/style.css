@@ -109,6 +109,7 @@ article {
 }
 
 #map {
+  border: 5px solid #00fde2;
   height: 800px;
   margin: 15px 0 0 0;
 }
