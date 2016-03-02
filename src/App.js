@@ -25,7 +25,28 @@ export class App extends Component {
     };
   }
 
+  componentDidMount() {
+    // get the current location (zipcode)
+    // get the current date
+    var Today = new Date();
+     var dd = Today.getDate();
+     var mm = Today.getMonth()+1; //January is 0!
+
+     var yyyy = Today.getFullYear();
+     if(dd<10){
+         dd='0'+dd
+     }
+     if(mm<10){
+         mm='0'+mm
+     }
+     var today = dd+'-'+mm+'-'+yyyy;
+     today = today.toString();
+    // set state to loc and date
+    this.getQuery('nyc', today, null, 'music');
+  }
+
   getQuery(city, start, end, catStr) { //eslint-disable-line
+    console.log("getQuery", city, start, end, catStr);
     const formattedStart = start.split('-').join('');
     let dateRange = formattedStart + '00-'; //eslint-disable-line
     if (!end) {
@@ -52,7 +73,6 @@ export class App extends Component {
       success: (data) => {
         this.setState({ fail: false });
         console.log('call to server successful');
-        // console.log(data);
         if (data) {
           const eventList = data;
           this.setState({ events: eventList });
