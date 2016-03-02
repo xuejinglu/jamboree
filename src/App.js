@@ -59,6 +59,7 @@ export class App extends Component {
         if (data) {
           const eventList = data;
           this.setState({ events: eventList });
+          this.searchYouTube( eventList[0].title, this.handleVideoChange.bind( this ) );
           this.setState({
             lat: eventList[Math.floor(eventList.length / 2)].latitude,
             lng: eventList[Math.floor(eventList.length / 2)].longitude,
@@ -75,22 +76,22 @@ export class App extends Component {
     });
   }
 
-  handleVideoChange( video ) {
-    this.setState({
-      video: video
-    });
-  }
-
-  componentDidMount() {
-    var searchCB = ( data ) => {
-      handleVideoChange( data.items[0] );
-    };
+  searchYouTube( search, callback ) {
     var options = {
-      query: this.state.events[0].title,
+      query: search,
       max: 1,
       key: keys.google
     };
-    getYouTube( options, searchCB );
+    getYouTube( options, ( data ) => {
+      callback( data.items[0] );
+    } );
+  }
+
+  handleVideoChange( video ) {
+    console.log( video );
+    this.setState({
+      video: video
+    });
   }
 
   /*eslint-disable */
