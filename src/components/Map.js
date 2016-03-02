@@ -73,7 +73,7 @@ class Map extends Component {
         position: pin.latlon,
         map: map, //eslint-disable-line
         title: 'Big Map',
-        icon: '../assets/mapIcon2.png',
+        icon: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png',
       });
 
       if (marker.getVisible()) {

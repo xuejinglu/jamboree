@@ -11,7 +11,7 @@ class Event extends Component {
         <article>
           <h4>{ this.props.data.title }</h4>
           <div>
-            <img src="../assets/mapIcon2.png"></img>
+            <img src="http://maps.google.com/mapfiles/ms/icons/pink-dot.png"></img>
             <h5>{ this.props.data.venue_name }</h5>
           </div>
         </article>
