@@ -126,7 +126,7 @@ export class App extends Component {
           <div className="col-xs-12">
           <h4 className="mapError">{ this.state.fail ? 'There are no events for this time and place. Please try again' : ''}</h4>
             <Map parentState={ this.state } changeLatLng={ this.changeLatLng.bind(this) } changeCurrEvent={ this.changeCurrEvent.bind(this) }/>
-            <EventList data={ this.state.events } video={ this.state.video } changeCurrEvent={ this.changeCurrEvent.bind(this) }/>
+            <EventList data={ this.state.events } video={ this.state.video } currentEvent={ this.state.currentEvent } changeCurrEvent={ this.changeCurrEvent.bind(this) }/>
           </div>
         </div>
       </container>
