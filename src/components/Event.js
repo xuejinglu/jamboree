@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 class Event extends Component {
   constructor(props) {
     super(props);
-    this.state = { event: props.data };
+    //this.state = { event: props.data };
   }
 
   render() {
     return (
         <article>
-          <h4>{ this.props.data.title }</h4>
+          <h4 onClick={ this.props.clickHandler.bind(null, this.props.data) }>{ this.props.data.title }</h4>
           <div>
             <img src="http://maps.google.com/mapfiles/ms/icons/pink-dot.png"></img>
             <h5>{ this.props.data.venue_name }</h5>

@@ -33,6 +33,8 @@ export class App extends Component {
     this.setState({
       currentEvent: event,
     });
+    this.searchYouTube(event.title, this.changeVideo.bind(this));
+    this.changeLatLng(event.latitude, event.longtitude);
   }
 
   changeEvents(events) {
@@ -130,7 +132,7 @@ export class App extends Component {
           <div className="col-xs-12">
           <h4 className="mapError">{ this.state.fail ? 'There are no events for this time and place. Please try again' : ''}</h4>
             <Map parentState={ this.state } />
-            <EventList data={ this.state.events } video={ this.state.video }/>
+            <EventList data={ this.state.events } video={ this.state.video } changeCurrEvent={ this.changeCurrEvent.bind(this) }/>
           </div>
         </div>
       </container>

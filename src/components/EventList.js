@@ -5,10 +5,10 @@ import Event from './Event.js';
 class EventList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      events: this.props.data,
-      video: this.props.video,
-    };
+  }
+
+  clickHandler(event) {
+    this.props.changeCurrEvent(event);
   }
 
   render() {
@@ -17,8 +17,8 @@ class EventList extends Component {
       <VideoPlayer video={ this.props.video } />
         <section>
           <div className="events-header"></div>
-          {this.props.data.map((event, i) =>
-            <Event key={i} data={event} />
+          {this.props.data.map((event) =>
+            <Event data={ event } clickHandler={ this.clickHandler.bind(this) } />
           )}
         </section>
       </div>
