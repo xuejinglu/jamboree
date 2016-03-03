@@ -17,8 +17,8 @@ class EventList extends Component {
       <VideoPlayer video={ this.props.video } />
         <section>
           <div className="events-header"></div>
-          {this.props.data.map((event) =>
-            <Event data={ event } clickHandler={ this.clickHandler.bind(this) } />
+          {this.props.data.map((event, i) =>
+            <Event key={i} data={event} clickHandler={ this.clickHandler.bind(this) } />
           )}
         </section>
       </div>

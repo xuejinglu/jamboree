@@ -19,7 +19,13 @@ export class App extends Component {
       events: [],
       currentEvent: {},
       fail: false,
+      startDate: getdate('yyyy-mm-dd'),
+      endDate: getdate('yyyy-mm-dd'),
     };
+
+    getloc((currlocation) => {
+      this.getQuery(currlocation, this.state.startDate, this.state.endDate, 'music');
+    });
   }
 
   changeLatLng(lat, lng) {
@@ -34,7 +40,8 @@ export class App extends Component {
       currentEvent: event,
     });
     this.searchYouTube(event.title, this.changeVideo.bind(this));
-    this.changeLatLng(event.latitude, event.longtitude);
+    this.changeLatLng(event.latitude, event.longitude);
+    console.log( "latlng:", this.state.lat, this.state.lng );
   }
 
   changeEvents(events) {
@@ -46,16 +53,6 @@ export class App extends Component {
   changeVideo(video) {
     this.setState({
       video,
-    });
-  }
-
-  componentDidMount() {
-    // gets the date from utils/getdate
-    const today = getdate('yyyy-mm-dd');
-    // gets loc from utils/getloc
-    getloc((currlocation) => {
-      // call getQuery on loc and date
-      this.getQuery(currlocation, today, today, 'music');
     });
   }
 
@@ -90,10 +87,10 @@ export class App extends Component {
           const eventList = data;
           this.setState({ events: eventList });
           this.searchYouTube(eventList[0].title, this.changeVideo.bind(this));
-          this.setState({
-            lat: eventList[Math.floor(eventList.length / 2)].latitude,
-            lng: eventList[Math.floor(eventList.length / 2)].longitude,
-          });
+          // this.setState({
+          //   lat: eventList[Math.floor(eventList.length / 2)].latitude,
+          //   lng: eventList[Math.floor(eventList.length / 2)].longitude,
+          // });
         } else {
           this.setState({ fail: true });
         }
