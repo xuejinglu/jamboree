@@ -29,7 +29,6 @@ class Search extends React.Component {
     return getdate('yyyy-mm-dd');
   }
 
-
   getInput() {
     const cats = [];
     const testChecks = (cat) => {
