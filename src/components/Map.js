@@ -45,10 +45,6 @@ class Map extends Component {
     this.getMap(myLatLng);
   }
 
-  handleClick( event ) {
-    this.props.changeCurrEvent( event );
-  }
-
   renderPins(events, map) {
     const context = this;
     const pins = [];
@@ -92,7 +88,7 @@ class Map extends Component {
         if (currentSelectedMarker) {
           currentSelectedMarker.message.close();
         }  else {
-          context.handleClick( pin.event );
+          context.props.changeCurrEvent( pin.event );
         }
         currentSelectedMarker = pin;
         pin.message.open(map, marker);
