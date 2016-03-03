@@ -86,10 +86,6 @@ export class App extends Component {
           const eventList = data;
           this.setState({ events: eventList });
           this.searchYouTube(eventList[0].title, this.changeVideo.bind(this));
-          // this.setState({
-          //   lat: eventList[Math.floor(eventList.length / 2)].latitude,
-          //   lng: eventList[Math.floor(eventList.length / 2)].longitude,
-          // });
         } else {
           this.setState({ fail: true });
         }
