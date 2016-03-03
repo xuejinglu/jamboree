@@ -45,7 +45,12 @@ class Map extends Component {
     this.getMap(myLatLng);
   }
 
+  handleClick( event ) {
+    this.props.changeCurrEvent( event );
+  }
+
   renderPins(events, map) {
+    const context = this;
     const pins = [];
     for (let i = 0; i < events.length; i++) {
       let description;
@@ -65,8 +70,7 @@ class Map extends Component {
           maxWidth: 275,
           maxHeight: 250,
         }),
-        place: events.title,
-        description: events.description,
+        event: events[i],
       });
     }
     let bounds = new google.maps.LatLngBounds(); //eslint-disable-line
@@ -87,6 +91,8 @@ class Map extends Component {
       google.maps.event.addListener(marker, 'click', function (){ //eslint-disable-line
         if (currentSelectedMarker) {
           currentSelectedMarker.message.close();
+        }  else {
+          context.handleClick( pin.event );
         }
         currentSelectedMarker = pin;
         pin.message.open(map, marker);
