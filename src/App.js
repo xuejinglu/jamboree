@@ -17,8 +17,34 @@ export class App extends Component {
     this.state = {
       video: { id: { videoId: '' }, snippet: { title: '' } },
       events: [],
+      currentEvent: {},
       fail: false,
     };
+  }
+
+  changeLatLng(lat, lng) {
+    this.setState({
+      lat,
+      lng,
+    });
+  }
+
+  changeCurrEvent(event) {
+    this.setState({
+      currentEvent: event,
+    });
+  }
+
+  changeEvents(events) {
+    this.setState({
+      events,
+    });
+  }
+
+  changeVideo(video) {
+    this.setState({
+      video,
+    });
   }
 
   componentDidMount() {
@@ -61,7 +87,7 @@ export class App extends Component {
         if (data) {
           const eventList = data;
           this.setState({ events: eventList });
-          this.searchYouTube(eventList[0].title, this.handleVideoChange.bind(this));
+          this.searchYouTube(eventList[0].title, this.changeVideo.bind(this));
           this.setState({
             lat: eventList[Math.floor(eventList.length / 2)].latitude,
             lng: eventList[Math.floor(eventList.length / 2)].longitude,
@@ -86,13 +112,6 @@ export class App extends Component {
     };
     getYouTube(options, (data) => {
       callback(data.items[0]);
-    });
-  }
-
-  handleVideoChange(video) {
-    console.log(video);
-    this.setState({
-      video,
     });
   }
 
