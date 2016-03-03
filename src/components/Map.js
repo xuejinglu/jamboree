@@ -33,6 +33,10 @@ class Map extends Component {
     const myLatLng = this.getLatLng(nextProps);
     const map = this.getMap(myLatLng);
     this.renderPins(nextProps.parentState.events, map);
+    if (myLatLng.lat && myLatLng.lng) {
+      map.setCenter(myLatLng);
+      map.setZoom(14);
+    }
     return true;
   }
 

@@ -41,7 +41,6 @@ export class App extends Component {
     });
     this.searchYouTube(event.title, this.changeVideo.bind(this));
     this.changeLatLng(event.latitude, event.longitude);
-    console.log( "latlng:", this.state.lat, this.state.lng );
   }
 
   changeEvents(events) {
