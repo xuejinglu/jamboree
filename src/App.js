@@ -11,29 +11,49 @@ import getloc from './utils/getloc';
 import getdate from './utils/getdate';
 
 
-/*eslint-disable */
-const mapStyle = [{'featureType':'administrative.neighborhood','elementType':'labels.text','stylers':[{'visibility':'simplified'}]},{'featureType':'all','elementType':'labels.text.fill','stylers':[{'color':'#ffffff'}]},{'featureType':'all','elementType':'labels.text.stroke','stylers':[{'color':'#000000'},{'lightness':13}]},{'featureType':'administrative','elementType':'geometry.fill','stylers':[{'visibility':'off'},{'color':'#000000'}]},{'featureType':'administrative','elementType':'geometry.stroke','stylers':[{'color':'#144b53'},{'weight':1.4},{'lightness':14}]},{'featureType':'landscape','elementType':'all','stylers':[{'color':'#08304b'}]},{'featureType':'road.highway','elementType':'geometry.fill','stylers':[{'visibility':'on'},{'color':'#000000'}]},{'featureType':'road.highway','elementType':'geometry.stroke','stylers':[{'visibility':'on'},{'color':'#0b434f'},{'lightness':25}]},{'featureType':'road.arterial','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'road.arterial','elementType':'geometry.stroke','stylers':[{'color':'#0b3d51'},{'lightness':16}]},{'featureType':'road.local','elementType':'geometry','stylers':[{'color':'#000000'}]},{'featureType':'transit','elementType':'all','stylers':[{'visibility':'off'},{'color':'#146474'}]},{'featureType':'water','elementType':'all','stylers':[{'color':'#021019'}]},{'featureType':'poi','elementType':'all','stylers':[{'visibility':'off'}]},{'featureType':'road.highway','elementType':'labels.icon','stylers':[{'visibility':'off'}]},{'featureType':'road.arterial','elementType':'labels.text','stylers':[{'visibility':'off'}]},{'featureType':'road.local','elementType':'labels','stylers':[{'visibility':'off'}]},{'featureType':'administrative.land_parcel','elementType':'all','stylers':[{'visibility':'on'}]},{'featureType':'administrative.locality','elementType':'all','stylers':[{'visibility':'off'}]},{'featureType':'road','elementType':'labels.icon','stylers':[{'visibility':'off'}]}];
-/*eslint-enable */
-
 export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       video: { id: { videoId: '' }, snippet: { title: '' } },
-      map: null,
       events: [],
-      mapStyle: mapStyle, //eslint-disable-line
+      currentEvent: {},
       fail: false,
+      startDate: getdate('yyyy-mm-dd'),
+      endDate: getdate('yyyy-mm-dd'),
+      lat: null,
+      lng: null,
     };
+
+    getloc((currlocation) => {
+      this.getQuery(currlocation, this.state.startDate, this.state.endDate, 'music');
+    });
   }
 
-  componentDidMount() {
-    // gets the date from utils/getdate
-    const today = getdate('yyyy-mm-dd');
-    // gets loc from utils/getloc
-    getloc((currlocation) => {
-      // call getQuery on loc and date
-      this.getQuery(currlocation, today, today, 'music');
+  changeLatLng(lat, lng) {
+    this.setState({
+      lat,
+      lng,
+    });
+  }
+
+  changeCurrEvent(event) {
+    this.setState({
+      currentEvent: event,
+    });
+    this.searchYouTube(event.title, this.changeVideo.bind(this));
+    this.changeLatLng(event.latitude, event.longitude);
+  }
+
+  changeEvents(events) {
+    this.setState({
+      events,
+    });
+  }
+
+  changeVideo(video) {
+    this.setState({
+      video,
     });
   }
 
@@ -67,11 +87,7 @@ export class App extends Component {
         if (data) {
           const eventList = data;
           this.setState({ events: eventList });
-          this.searchYouTube(eventList[0].title, this.handleVideoChange.bind(this));
-          this.setState({
-            lat: eventList[Math.floor(eventList.length / 2)].latitude,
-            lng: eventList[Math.floor(eventList.length / 2)].longitude,
-          });
+          this.searchYouTube(eventList[0].title, this.changeVideo.bind(this));
         } else {
           this.setState({ fail: true });
         }
@@ -95,13 +111,6 @@ export class App extends Component {
     });
   }
 
-  handleVideoChange(video) {
-    console.log(video);
-    this.setState({
-      video,
-    });
-  }
-
   /*eslint-disable */
   render() {
     return (
@@ -116,8 +125,8 @@ export class App extends Component {
           <br/>
           <div className="col-xs-12">
           <h4 className="mapError">{ this.state.fail ? 'There are no events for this time and place. Please try again' : ''}</h4>
-            <Map parentState={ this.state } />
-            <EventList data={ this.state.events } video={ this.state.video }/>
+            <Map parentState={ this.state } changeLatLng={ this.changeLatLng.bind(this) } changeCurrEvent={ this.changeCurrEvent.bind(this) }/>
+            <EventList data={ this.state.events } video={ this.state.video } changeCurrEvent={ this.changeCurrEvent.bind(this) }/>
           </div>
         </div>
       </container>
