@@ -21,6 +21,8 @@ export class App extends Component {
       fail: false,
       startDate: getdate('yyyy-mm-dd'),
       endDate: getdate('yyyy-mm-dd'),
+      lat: null,
+      lng: null,
     };
 
     getloc((currlocation) => {
