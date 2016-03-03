@@ -5,7 +5,6 @@ var eventController = require('./events/eventController.js');
 var morgan = require('morgan');
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
-var keys = require('./keys/apiKeys.js');
 var userController = require('./users/userController');
 
 const PORT = 8080;
@@ -18,6 +17,7 @@ mongoose.connect('mongodb://localhost/jamboree');
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../public/'));
 app.use(passport.initialize());
+
 
 // configuration ===========================================
 
@@ -64,8 +64,10 @@ passport.deserializeUser(function(obj, cb) {
   cb(null, obj);
 });
 
+
 // passport routes =========================================================
 // route to handle all facebook passport requests
+
 app.get('/api/events/getList', eventController.getEvents);
 
 app.get('/login/facebook',
@@ -79,7 +81,6 @@ app.get('/login/facebook/return',
     res.cookie('fbId',req.user.fbId);
     res.cookie('picture',req.user.picture);
     res.redirect('/#mainApp');
-
   });
 
 
