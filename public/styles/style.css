@@ -29,6 +29,8 @@ h5 {
   padding: 4px;
   border: 1px solid cyan;
   border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .pin {
@@ -43,6 +45,10 @@ h5 {
 
 .events {
   margin-top: 20%;
+}
+
+.eventTitle {
+  margin-top: 0;
 }
 
 .eventText {

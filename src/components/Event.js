@@ -8,11 +8,11 @@ class Event extends Component {
   }
 
   render() {
-    let className = this.props.currentEvent === this.props.id ? 'center event currentEvent' : 'event';
+    let className = this.props.currentEvent === this.props.id ? 'center currentEvent' : '';
     return (
-        <article>
-          <h4 onClick={ this.props.clickHandler.bind(null, this.props.data) }>{ this.props.data.title }</h4>
-            <div className="event">
+        <article className = { className }>
+          <h4 className='eventTitle' onClick={ this.props.clickHandler.bind(null, this.props.id) }>{ this.props.data.title }</h4>
+            <div className='event'>
               <img className="pin" src="http://maps.google.com/mapfiles/ms/icons/pink-dot.png"></img>
               <div className="eventText">
                 <span className="venueName">{ this.props.data.venue_name }</span>
