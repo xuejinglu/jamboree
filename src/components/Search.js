@@ -6,24 +6,27 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // default placesholders while page is loading
-      location: 'Enter Location',
-      date: 'mm/dd/yyyy',
+      location: 'Enter a location',
     };
   }
 
   componentDidMount() {
-    // sets placeholder values of the date & location fields to curr loc and curr date
-    const today = getdate('mm/dd/yyyy');
-    const _this = this;
+    // sets current location for on page load
     getloc((loc) => {
-      _this.setState(
-        {
-          location: loc,
-          date: today,
-        }
-      );
+      this.setState({
+        location: loc,
+      });
     });
+  }
+
+  setLocation(event) {
+    this.setState({
+      location: event.target.value,
+    });
+  }
+
+  getDate() {
+    return getdate('yyyy-mm-dd');
   }
 
   getInput() {
@@ -47,15 +50,15 @@ class Search extends React.Component {
         <form className="form-group row">
           <div className="col-md-3">
             <label htmlFor="city">Enter a city or zipcode:</label>
-            <input type="text" placeholder={this.state.location}  id="locationField" className="form-control" ref="city"/>
+            <input type="text" onChange={this.setLocation.bind(this)} value={this.state.location} id="locationField" className="form-control" ref="city"/>
           </div>
           <div className="col-md-3">
             <label htmlFor="start">Enter start date</label>
-            <input type="text" placeholder={this.state.date} onfocus="(this.type='date')" className="form-control" ref="start" />
+            <input type="date" defaultValue={this.getDate()}  className="form-control" ref="start" />
           </div>
           <div className="col-md-3">
             <label htmlFor="end">Enter end date (optional)</label>
-            <input type="text" placeholder={this.state.date} onfocus="(this.type='date')" className="form-control" ref="end" />
+            <input type="date" defaultValue={this.getDate()} className="form-control" ref="end" />
           </div>
           <div className="col-md-1">
           <button type="submit" className="btn btn-info submitbutton"
