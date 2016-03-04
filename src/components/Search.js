@@ -40,6 +40,9 @@ class Search extends React.Component {
     testChecks(this.refs.singles);
     testChecks(this.refs.performing);
     const catStr = cats.join(',');
+    if(this.refs.start.value > this.refs.end.value){
+      this.refs.end.value = null;
+    }
     this.props.getQuery(this.refs.city.value, this.refs.start.value, this.refs.end.value, catStr);
   }
 
