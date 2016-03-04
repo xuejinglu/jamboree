@@ -26,11 +26,21 @@ h5 {
 }
 
 .currentEvent {
-  border: 1px solid red;
+  text-align: center;
+  padding: 4px;
+  border: 1px solid cyan;
+  border-radius: 5px;
+}
+
+.event {
+  cursor: pointer;
+  cursor: hand;
 }
 
 .videoPlayer {
+  color: darkcyan;
   height: 300px;
+  margin-bottom: 20px;
 }
 
 .search {
