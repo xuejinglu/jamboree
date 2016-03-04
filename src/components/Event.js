@@ -6,7 +6,7 @@ class Event extends Component {
   }
 
   render() {
-    let className = this.props.currentEvent === this.props.id ? 'event currentEvent' : 'event';
+    let className = this.props.currentEvent === this.props.id ? 'center event currentEvent' : 'event';
     return (
         <article className={ className }>
           <h4 onClick={ this.props.clickHandler.bind(null, this.props.id) }>{ this.props.data.title }</h4>
