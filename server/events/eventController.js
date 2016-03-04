@@ -26,6 +26,7 @@ module.exports = {
               console.error("Error received in searchEvents:", err);
             } else {
               if (data) {
+                console.log("data returned from eventful.searchEvents");
                 // data received from eventful API, return data to map, then store in db
                   // uses $currentDate to pull date and sets value of lastModified column
                   // $currentDate: {
