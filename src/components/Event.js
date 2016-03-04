@@ -16,7 +16,7 @@ class Event extends Component {
               <img className="pin" src="http://maps.google.com/mapfiles/ms/icons/pink-dot.png"></img>
               <div className="eventText">
                 <span className="venueName">{ this.props.data.venue_name }</span>
-                <div className="eventDate">{ this.date_str.substr(0, 21) } }</div>
+                <div className="eventDate">{ this.date_str.substr(0, 21) }</div>
               </div>
             </div>
         </article>
