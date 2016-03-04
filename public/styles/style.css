@@ -37,9 +37,12 @@ h5 {
   float: left;
 }
 
-.event {
+.clickable {
   cursor: pointer;
   cursor: hand;
+}
+
+.event {
   color: #ADF5FF;
 }
 
