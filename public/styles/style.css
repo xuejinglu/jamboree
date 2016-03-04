@@ -25,7 +25,33 @@ h5 {
   color: white;
 }
 
+.pin {
+  float: left;
+}
+
+.event {
+  color: #ADF5FF;
+}
+
+.events {
+  margin-top: 20%;
+}
+
+.eventText {
+  position: relative;
+  top: -5px;
+}
+
+.venueName {
+  font-size: 1.1em;
+}
+
+.eventDate {
+  font-size: .8em;
+}
+
 .videoPlayer {
+  color: darkcyan;
   height: 300px;
 }
 
@@ -86,11 +112,6 @@ article {
   position: absolute;
   text-align: center;
   top: 250px;
-}
-
-.events-header {
-  font-size: 48px;
-  color: red;
 }
 
 .eventList {
