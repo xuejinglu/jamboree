@@ -16,6 +16,3 @@ public/app.js
 # Keys
 apiKeys.js
 
-# Auth
-auth.js
-
