@@ -2,7 +2,7 @@ import React from 'react';
 
 const Banner = () => (
   <div id="banner-container">
-    <div className="banner">
+    <div className="center banner">
       <p>
         See what events are happening around you.
         Check out what's happening at local venues - find your Jamboree.

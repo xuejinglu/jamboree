@@ -17,7 +17,7 @@ export class App extends Component {
     this.state = {
       video: { id: { videoId: '' }, snippet: { title: '' } },
       events: [],
-      currentEvent: {},
+      currentEvent: 0,
       fail: false,
       startDate: getdate('yyyy-mm-dd'),
       endDate: getdate('yyyy-mm-dd'),
@@ -37,18 +37,21 @@ export class App extends Component {
     });
   }
 
-  changeCurrEvent(event) {
+  changeCurrEvent(eventIdx) {
+    let events = this.state.events;
     this.setState({
-      currentEvent: event,
+      currentEvent: eventIdx,
     });
-    this.searchYouTube(event.title, this.changeVideo.bind(this));
-    this.changeLatLng(event.latitude, event.longitude);
+    this.searchYouTube(events[eventIdx].title, this.changeVideo.bind(this));
+    this.changeLatLng(events[eventIdx].latitude, events[eventIdx].longitude);
   }
 
   changeEvents(events) {
     this.setState({
       events,
     });
+    // Reset the current event to the 0th whenever we get a new event list.
+    this.changeCurrEvent(0);
   }
 
   changeVideo(video) {
@@ -129,7 +132,7 @@ export class App extends Component {
           <div className="col-xs-12">
           <h4 className="mapError">{ this.state.fail ? 'There are no events for this time and place. Please try again' : ''}</h4>
             <Map parentState={ this.state } changeLatLng={ this.changeLatLng.bind(this) } changeCurrEvent={ this.changeCurrEvent.bind(this) }/>
-            <EventList data={ this.state.events } video={ this.state.video } changeCurrEvent={ this.changeCurrEvent.bind(this) }/>
+            <EventList data={ this.state.events } video={ this.state.video } currentEvent={ this.state.currentEvent } changeCurrEvent={ this.changeCurrEvent.bind(this) }/>
           </div>
         </div>
       </container>

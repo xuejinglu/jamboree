@@ -66,7 +66,7 @@ class Map extends Component {
           maxWidth: 275,
           maxHeight: 250,
         }),
-        event: events[i],
+        eventIdx: i,
       });
     }
     let bounds = new google.maps.LatLngBounds(); //eslint-disable-line
@@ -87,8 +87,8 @@ class Map extends Component {
       google.maps.event.addListener(marker, 'click', function (){ //eslint-disable-line
         if (currentSelectedMarker) {
           currentSelectedMarker.message.close();
-        }  else {
-          context.props.changeCurrEvent( pin.event );
+        } else {
+          context.props.changeCurrEvent(pin.eventIdx);
         }
         currentSelectedMarker = pin;
         pin.message.open(map, marker);

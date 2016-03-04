@@ -18,7 +18,7 @@ class EventList extends Component {
         <section>
           <div className="events-header"></div>
           {this.props.data.map((event, i) =>
-            <Event key={i} data={event} clickHandler={ this.clickHandler.bind(this) } />
+            <Event key={i} id={i} data={event} currentEvent={ this.props.currentEvent } clickHandler={ this.clickHandler.bind(this) } />
           )}
         </section>
       </div>
