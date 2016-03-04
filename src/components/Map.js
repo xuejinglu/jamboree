@@ -8,10 +8,16 @@ class Map extends Component {
     /*eslint-disable */
     this.mapStyle = [{'featureType':'administrative.neighborhood','elementType':'labels.text','stylers':[{'visibility':'simplified'}]},{'featureType':'all','elementType':'labels.text.fill','stylers':[{'color':'#ffffff'}]},{'featureType':'all','elementType':'labels.text.stroke','stylers':[{'color':'#000000'},{'lightness':13}]},{'featureType':'administrative','elementType':'geometry.fill','stylers':[{'visibility':'off'},{'color':'#000000'}]},{'featureType':'administrative','elementType':'geometry.stroke','stylers':[{'color':'#144b53'},{'weight':1.4},{'lightness':14}]},{'featureType':'landscape','elementType':'all','stylers':[{'color':'#08304b'}]},{'featureType':'road.highway','elementType':'geometry.fill','stylers':[{'visibility':'on'},{'color':'#000000'}]},{'featureType':'road.highway','elementType':'geometry.stroke','stylers':[{'visibility':'on'},{'color':'#0b434f'},{'lightness':25}]},{'featureType':'road.arterial','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'road.arterial','elementType':'geometry.stroke','stylers':[{'color':'#0b3d51'},{'lightness':16}]},{'featureType':'road.local','elementType':'geometry','stylers':[{'color':'#000000'}]},{'featureType':'transit','elementType':'all','stylers':[{'visibility':'off'},{'color':'#146474'}]},{'featureType':'water','elementType':'all','stylers':[{'color':'#021019'}]},{'featureType':'poi','elementType':'all','stylers':[{'visibility':'off'}]},{'featureType':'road.highway','elementType':'labels.icon','stylers':[{'visibility':'off'}]},{'featureType':'road.arterial','elementType':'labels.text','stylers':[{'visibility':'off'}]},{'featureType':'road.local','elementType':'labels','stylers':[{'visibility':'off'}]},{'featureType':'administrative.land_parcel','elementType':'all','stylers':[{'visibility':'on'}]},{'featureType':'administrative.locality','elementType':'all','stylers':[{'visibility':'off'}]},{'featureType':'road','elementType':'labels.icon','stylers':[{'visibility':'off'}]}];
     /*eslint-enable */
+    this.currentSelectedPin = null;
+    this.state = {
+      map: {},
+    }
   }
 
-  componentDidMount() {
-    this.renderMap();
+  componentDidMount(){
+    this.setState({
+      map: this.getMap(this.getLatLng(this.props)),
+    })
   }
 
   getLatLng(props) { //eslint-disable-line
@@ -29,20 +35,15 @@ class Map extends Component {
     });
   }
 
-  shouldComponentUpdate(nextProps) {
+  componentDidUpdate(nextProps) {
+    let map = this.state.map;
     const myLatLng = this.getLatLng(nextProps);
-    const map = this.getMap(myLatLng);
     this.renderPins(nextProps.parentState.events, map);
     if (myLatLng.lat && myLatLng.lng) {
       map.setCenter(myLatLng);
       map.setZoom(14);
     }
     return true;
-  }
-
-  renderMap() {
-    const myLatLng = this.getLatLng(this.props);
-    this.getMap(myLatLng);
   }
 
   renderPins(events, map) {
@@ -70,7 +71,6 @@ class Map extends Component {
       });
     }
     let bounds = new google.maps.LatLngBounds(); //eslint-disable-line
-    let currentSelectedMarker;
     pins.forEach((pin) => { //eslint-disable-line
       let marker = new google.maps.Marker({ //eslint-disable-line
         position: pin.latlon,
@@ -85,12 +85,11 @@ class Map extends Component {
 
       // For each marker created, add a listener that checks for clicks
       google.maps.event.addListener(marker, 'click', function (){ //eslint-disable-line
-        if (currentSelectedMarker) {
-          currentSelectedMarker.message.close();
-        } else {
-          context.props.changeCurrEvent(pin.eventIdx);
-        }
-        currentSelectedMarker = pin;
+        if (context.currentSelectedPin) {
+          context.currentSelectedPin.message.close();
+        } 
+        context.props.changeCurrEvent(pin.eventIdx);
+        context.currentSelectedPin = pin;
         pin.message.open(map, marker);
       });
     });
