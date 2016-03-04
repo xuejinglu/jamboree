@@ -38,7 +38,17 @@ module.exports = {
                     if(eventList[i].description) {
                       eventList[i].description = eventList[i].description.slice(0, 500) + '...';
                     }
-                    var used = ['title', 'venue_name', 'venue_address', 'city_name', 'region_abbr', 'url', 'latitude', 'longitude', 'description'];
+                    var used = ['title',
+                      'venue_name',
+                      'start_time',
+                      'stop_time',
+                      'venue_address',
+                      'city_name',
+                      'region_abbr',
+                      'url',
+                      'latitude',
+                      'longitude',
+                      'description'];
                     for(var prop in eventList[i]) {
                       if(used.indexOf(prop) === -1){
                         delete eventList[i][prop];

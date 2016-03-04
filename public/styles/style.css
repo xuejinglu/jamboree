@@ -31,9 +31,31 @@ h5 {
   border-radius: 5px;
 }
 
+.pin {
+  float: left;
+}
+
 .event {
   cursor: pointer;
   cursor: hand;
+  color: #ADF5FF;
+}
+
+.events {
+  margin-top: 20%;
+}
+
+.eventText {
+  position: relative;
+  top: -5px;
+}
+
+.venueName {
+  font-size: 1.1em;
+}
+
+.eventDate {
+  font-size: .8em;
 }
 
 .videoPlayer {
@@ -100,11 +122,6 @@ article {
   max-width: 100%;
   position: absolute;
   top: 250px;
-}
-
-.events-header {
-  font-size: 48px;
-  color: red;
 }
 
 .eventList {
