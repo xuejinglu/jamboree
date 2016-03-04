@@ -25,6 +25,10 @@ h5 {
   color: white;
 }
 
+.currentEvent {
+  border: 1px solid red;
+}
+
 .videoPlayer {
   height: 300px;
 }

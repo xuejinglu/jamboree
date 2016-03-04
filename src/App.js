@@ -17,7 +17,7 @@ export class App extends Component {
     this.state = {
       video: { id: { videoId: '' }, snippet: { title: '' } },
       events: [],
-      currentEvent: {},
+      currentEvent: 0,
       fail: false,
       startDate: getdate('yyyy-mm-dd'),
       endDate: getdate('yyyy-mm-dd'),
@@ -37,18 +37,21 @@ export class App extends Component {
     });
   }
 
-  changeCurrEvent(event) {
+  changeCurrEvent(eventIdx) {
+    let events = this.state.events;
     this.setState({
-      currentEvent: event,
+      currentEvent: eventIdx,
     });
-    this.searchYouTube(event.title, this.changeVideo.bind(this));
-    this.changeLatLng(event.latitude, event.longitude);
+    this.searchYouTube(events[eventIdx].title, this.changeVideo.bind(this));
+    this.changeLatLng(events[eventIdx].latitude, events[eventIdx].longitude);
   }
 
   changeEvents(events) {
     this.setState({
       events,
     });
+    // Reset the current event to the 0th whenever we get a new event list.
+    this.changeCurrEvent(0);
   }
 
   changeVideo(video) {
