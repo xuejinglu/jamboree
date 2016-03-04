@@ -44,7 +44,7 @@ class Search extends React.Component {
   render() {
     return (
       <div className="search">
-        <div className="form-group row">
+        <form className="form-group row">
           <div className="col-md-3">
             <label htmlFor="city">Enter a city or zipcode:</label>
             <input type="text" placeholder={this.state.location}  id="locationField" className="form-control" ref="city"/>
@@ -62,7 +62,7 @@ class Search extends React.Component {
             onClick={this.getInput.bind(this)}> Start Search
           </button>
           </div>
-        </div>
+        </form>
         <div className="form-group row radio">
           <form action="">
             <div className="col-md-2 col-md-offset-1">
