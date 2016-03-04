@@ -85,7 +85,10 @@ export class App extends Component {
         this.setState({ fail: false });
         console.log('call to server successful');
         if (data) {
-          const eventList = data;
+          // The following two lines of code are because when only a single event is returned,
+          // it is returned as an object, not as an array with an object as its only element.
+          let eventList = [];
+          eventList = eventList.concat(data);
           this.setState({ events: eventList });
           this.searchYouTube(eventList[0].title, this.changeVideo.bind(this));
         } else {
