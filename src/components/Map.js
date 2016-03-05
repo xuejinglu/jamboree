@@ -60,6 +60,14 @@ class Map extends Component {
      const contentString = '<h3>' + event.title + '</h3>' +//eslint-disable-line
                    '<h4><a href="' + event.url + '">Buy Tickets</a></h4>' +
                    '<br><b>Venue</b>: ' + event.venue_name +
+                   '<br><b>Address: </b><a href="http://maps.google.com/?q=' +
+                     events[i].venue_address + ',' +
+                     events[i].city_name + ',' +
+                     events[i].region_abbr +
+                     '" TARGET="_blank">' +
+                     events[i].venue_address + ', ' +
+                     events[i].city_name + ', ' +
+                     events[i].region_abbr + '</a></b>' +
                    description; //eslint-disable-line
 
     return {
@@ -67,7 +75,7 @@ class Map extends Component {
       position: new google.maps.LatLng( event.latitude, event.longitude ),
       icon: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png',
       message: {
-        content: description,
+        content: contentString,
         maxWidth: 275,
         maxHeight: 250,
       },
@@ -78,6 +86,32 @@ class Map extends Component {
 
   extractDataFromEat( eat, idx ) {
     // format eat object into data usable by renderPins
+    const address = eat.location.display_address[0] + ' ' + eat.location.display_address[1] + ' ' + eat.location.display_address[2];
+    let description = '<h3>' + eat.name + '</h3>' + 
+                        '<h4><a href="' + eat.mobile_url + '">Mobile Link</a></h4>' +
+                        '<br><b>Address</b>: ' + address +
+                        '<br>'
+                        '<br><b>Phone</b>: ' + eat.display_phone +
+                        '<br><b>Categories</b>: ';
+    eat.categories.forEach( function( category, index ) {
+      description += category[0];
+      if( index+1 < categories.length ) {
+        description += ', ';
+      }
+    });
+    description +=      '<br><b>Rating</b>:' + eat.rating;
+
+    return {
+      title: name,
+      position: new google.maps.LatLng( eat.location.coordinate.latitude, eat.location.coordinate.longitude ),
+      icon: '',
+      message: {
+        content: description,
+        maxWidth: 275,
+        maxHeight: 250,
+      },
+      idx: idx,
+    }
   }
 
   // renderPins( Map, Array, Function, Boolean )
