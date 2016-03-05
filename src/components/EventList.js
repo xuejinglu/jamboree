@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import VideoPlayer from './VideoPlayer';
 import Event from './Event.js';
-
+/*eslint-disable */
 class EventList extends Component {
   constructor(props) {
     super(props);
@@ -28,5 +28,5 @@ class EventList extends Component {
 }
 
 EventList.propTypes = { data: React.PropTypes.array.isRequired };
-
+/*eslint-enable */
 export default EventList;

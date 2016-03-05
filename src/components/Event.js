@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+/*eslint-disable */
 class Event extends Component {
   constructor(props) {
     super(props);
@@ -33,5 +33,5 @@ class Event extends Component {
 }
 
 Event.propTypes = { data: React.PropTypes.object.isRequired };
-
+/*eslint-enable */
 export default Event;

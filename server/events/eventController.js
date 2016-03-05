@@ -2,7 +2,7 @@ var Event = require('./eventModel.js');
 var Q = require('q');
 var key = require('../keys/apikeys.js')
 var eventful = require('eventful-node');
-var client = new eventful.Client(key.eventful);
+var eventful = new eventful.Client(key.eventful);
 
 // This function is for optimization to allow auto-refreshing of event listings
 // var updateEvent= Q.nbind(Event.update, Event);
@@ -19,12 +19,14 @@ module.exports = {
         console.log("retrieving from database...");
         res.json(doc.eventList);
       } else {
-        client.searchEvents(req.query,
+        // calls eventful API
+        eventful.searchEvents(req.query,
           function(err, data){
             if (err) {
               console.error("Error received in searchEvents:", err);
             } else {
               if (data) {
+                console.log("data returned from eventful.searchEvents");
                 // data received from eventful API, return data to map, then store in db
                   // uses $currentDate to pull date and sets value of lastModified column
                   // $currentDate: {

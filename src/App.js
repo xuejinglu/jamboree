@@ -30,36 +30,6 @@ export class App extends Component {
     });
   }
 
-  changeLatLng(lat, lng) {
-    this.setState({
-      lat,
-      lng,
-    });
-  }
-
-  changeCurrEvent(eventIdx) {
-    let events = this.state.events;
-    this.setState({
-      currentEvent: eventIdx,
-    });
-    this.searchYouTube(events[eventIdx].title, this.changeVideo.bind(this));
-    this.changeLatLng(events[eventIdx].latitude, events[eventIdx].longitude);
-  }
-
-  changeEvents(events) {
-    this.setState({
-      events,
-    });
-    // Reset the current event to the 0th whenever we get a new event list.
-    this.changeCurrEvent(0);
-  }
-
-  changeVideo(video) {
-    this.setState({
-      video,
-    });
-  }
-
   getQuery(city, start, end, catStr) { //eslint-disable-line
     const formattedStart = start.split('-').join('');
     let dateRange = formattedStart + '00-'; //eslint-disable-line
@@ -104,6 +74,36 @@ export class App extends Component {
         console.log('problem is ', JSON.parse(data.responseText));
         console.log(JSON.parse(data.responseText));
       },
+    });
+  }
+
+  changeLatLng(lat, lng) {
+    this.setState({
+      lat,
+      lng,
+    });
+  }
+
+  changeCurrEvent(eventIdx) {
+    const events = this.state.events;
+    this.setState({
+      currentEvent: eventIdx,
+    });
+    this.searchYouTube(events[eventIdx].title, this.changeVideo.bind(this));
+    this.changeLatLng(events[eventIdx].latitude, events[eventIdx].longitude);
+  }
+
+  changeEvents(events) {
+    this.setState({
+      events,
+    });
+    // Reset the current event to the 0th whenever we get a new event list.
+    this.changeCurrEvent(0);
+  }
+
+  changeVideo(video) {
+    this.setState({
+      video,
     });
   }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-
+/*eslint-disable */
 const VideoPlayer = (props) => (
   <div className="videoPlayer">
     <div className="embed-responsive embed-responsive-16by9">
@@ -11,5 +11,5 @@ const VideoPlayer = (props) => (
     </div>
   </div>
 );
-
+/*eslint-enable */
 export default VideoPlayer;
