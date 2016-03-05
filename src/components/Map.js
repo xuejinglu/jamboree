@@ -11,14 +11,16 @@ class Map extends Component {
     this.currentSelectedPin = null;
     this.state = {
       map: {},
-    }
+    };
   }
 
-  componentDidMount(){
+  /*eslint-disable */
+  componentDidMount() {
     this.setState({
       map: this.getMap(this.getLatLng(this.props)),
-    })
+    });
   }
+  /*eslint-enable */
 
   getLatLng(props) { //eslint-disable-line
     return {
@@ -36,7 +38,7 @@ class Map extends Component {
   }
 
   componentDidUpdate(nextProps) {
-    let map = this.state.map;
+    const map = this.state.map;
     const myLatLng = this.getLatLng(nextProps);
     this.renderPins(nextProps.parentState.events, map);
     if (myLatLng.lat && myLatLng.lng) {

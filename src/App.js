@@ -84,7 +84,7 @@ export class App extends Component {
   }
 
   changeCurrEvent(eventIdx) {
-    let events = this.state.events;
+    const events = this.state.events;
     this.setState({
       currentEvent: eventIdx,
     });
