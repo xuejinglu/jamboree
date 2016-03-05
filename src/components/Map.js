@@ -37,10 +37,12 @@ class Map extends Component {
     });
   }
 
-  componentDidUpdate(nextProps) {
+  componentDidUpdate(prevProps) {
     const map = this.state.map;
-    const myLatLng = this.getLatLng(nextProps);
-    this.renderPins(nextProps.parentState.events, map);
+    const myLatLng = this.getLatLng(prevProps);
+    // renderPins( Map, Array, Function( place, index ), Boolean, Function( marker ) )
+    this.renderPins( map, prevProps.parentState.events, this.extractDataFromEvent.bind( this ), true, this.eventClickListener.bind( this ) );
+
     if (myLatLng.lat && myLatLng.lng) {
       map.setCenter(myLatLng);
       map.setZoom(14);
@@ -53,7 +55,7 @@ class Map extends Component {
 
     let description;
      if (event.description) {
-       description = '<br><b>Description</b>: ' + events.description + '</p>'; //eslint-disable-line
+       description = '<br><b>Description</b>: ' + event.description + '</p>'; //eslint-disable-line
      } else {
        description = '';
      }
@@ -61,13 +63,13 @@ class Map extends Component {
                    '<h4><a href="' + event.url + '">Buy Tickets</a></h4>' +
                    '<br><b>Venue</b>: ' + event.venue_name +
                    '<br><b>Address: </b><a href="http://maps.google.com/?q=' +
-                     events[i].venue_address + ',' +
-                     events[i].city_name + ',' +
-                     events[i].region_abbr +
+                     event.venue_address + ',' +
+                     event.city_name + ',' +
+                     event.region_abbr +
                      '" TARGET="_blank">' +
-                     events[i].venue_address + ', ' +
-                     events[i].city_name + ', ' +
-                     events[i].region_abbr + '</a></b>' +
+                     event.venue_address + ', ' +
+                     event.city_name + ', ' +
+                     event.region_abbr + '</a></b>' +
                    description; //eslint-disable-line
 
     return {
@@ -102,7 +104,7 @@ class Map extends Component {
     description +=      '<br><b>Rating</b>:' + eat.rating;
 
     return {
-      title: name,
+      title: eat.name,
       position: new google.maps.LatLng( eat.location.coordinate.latitude, eat.location.coordinate.longitude ),
       icon: '',
       message: {
@@ -114,13 +116,38 @@ class Map extends Component {
     }
   }
 
-  // renderPins( Map, Array, Function, Boolean )
+  eventClickListener( marker ) {
+    let pin = this.currentSelectedPin;
+    if( pin ) {
+      pin.message.close();
+    }
+    this.props.changeCurrEvent( marker.idx );
+    this.currentSelectedPin = marker;
+    marker.message.open( this.state.map, marker );
+
+  }
+
+  eatClickListener( marker ) {
+    let pin = this.currentSelectedPin;
+    if( pin ) {
+      pin.message.close();
+    }
+    this.currentSelectedPin = marker;
+    marker.message.open( this.state.map, marker );
+  }
+
+  // renderPins( Map, Array, Function( place, index ), Boolean, Function( marker ) )
   renderPins(map, places, extractData, shouldExpandBounds, onClickListener) {
     // side effect function that sets up markers.
     // event: title, description, url, venue_name, latitude, longitude
     // events: array of event objects.
     // eats: array of eat objects.
     // eat: name, display_phone, , mobile_url, location.coordinate.latitude, location.coordinate.longitude,
+    let bounds;
+
+    if( shouldExpandBounds ) {
+      bounds = new google.maps.LatLngBounds();
+    }
 
     places.forEach( function( place, index ) {
       let extractedPlace = extractData( place, index );
@@ -132,8 +159,23 @@ class Map extends Component {
       });
       marker.message = new google.maps.InfoWindow( extractedPlace.message );
       marker.idx = extractedPlace.idx;
+
+      if( shouldExpandBounds ) {
+        if( marker.getVisible() ) {
+          bounds.extend( marker.getPosition() );
+        }
+      }
+
+      if( onClickListener ) {
+        google.maps.event.addListener( marker, 'click', onClickListener.bind( this, marker ) );
+      }
+
     });
-    
+
+    if( shouldExpandBounds ) {
+      map.fitBounds( bounds );
+    }
+
   }
 
   render() {
