@@ -5,7 +5,7 @@ class Event extends Component {
     super(props);
     // Initialize these variables
     this.start_date = new Date( this.props.data.start_time );
-    this.date_str = this.start_date.toString()
+    this.date_str = this.start_date.toString();
   }
 
   componentWillUpdate( nextProps ) {
