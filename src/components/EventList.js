@@ -15,12 +15,10 @@ class EventList extends Component {
     return (
       <div className="col-xs-4 eventList">
       <VideoPlayer video={ this.props.video } />
-        <section>
-          <div className="events">
+        <section className="events">
           {this.props.data.map((event, i) =>
             <Event key={i} id={i} data={event} currentEvent={ this.props.currentEvent } clickHandler={ this.clickHandler.bind(this) } />
           )}
-          </div>
         </section>
       </div>
     );

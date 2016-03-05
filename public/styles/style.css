@@ -44,7 +44,9 @@ h5 {
 }
 
 .events {
-  margin-top: 20%;
+  color: #00fde2;
+  height: 500px;
+  overflow: scroll;
 }
 
 .eventTitle {
@@ -128,12 +130,6 @@ article {
   max-width: 100%;
   position: absolute;
   top: 250px;
-}
-
-.eventList {
-  color: #00fde2;
-  height: 800px;
-  overflow: scroll;
 }
 
 .mapError {
