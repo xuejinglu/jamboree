@@ -7,7 +7,7 @@ const VideoPlayer = (props) => (
     </div>
 
     <div className="video-player-details">
-      <h3>{props.video.snippet.title}</h3>
+      <h3 className="videoTitle">{ props.video.snippet.title.substr( 0, 64 ) }</h3>
     </div>
   </div>
 );
