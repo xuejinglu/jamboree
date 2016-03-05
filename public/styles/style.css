@@ -25,6 +25,54 @@ h5 {
   color: white;
 }
 
+.currentEvent {
+  padding: 4px;
+  border: 1px solid cyan;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.pin {
+  float: left;
+}
+
+.clickable {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.event {
+  color: #ADF5FF;
+}
+
+.events {
+  margin-top: 20%;
+}
+
+.eventTitle {
+  margin-top: 0;
+}
+
+.eventText {
+  position: relative;
+  top: -5px;
+}
+
+.venueName {
+  font-size: 1.1em;
+}
+
+.eventDate {
+  font-size: .8em;
+}
+
+.videoPlayer {
+  color: darkcyan;
+  height: 300px;
+  margin-bottom: 20px;
+}
+
 .search {
   color: #00fde2;
   margin: 5px 10% 20px 10%;
@@ -35,6 +83,9 @@ h5 {
   margin-top: 1em;
 }
 
+.center {
+  text-align: center;
+}
 
 #banner-container {
   height: 100%;
@@ -59,7 +110,6 @@ article {
   background-size: cover;
   font-weight: bold;
   height: 900px;
-  text-align: center;
   position: relative;
   color: #00fde2;
   width: 100%;
@@ -80,13 +130,7 @@ article {
   margin: -100px 300px 0 300px;
   max-width: 100%;
   position: absolute;
-  text-align: center;
   top: 250px;
-}
-
-.events-header {
-  font-size: 48px;
-  color: red;
 }
 
 .eventList {
@@ -109,7 +153,32 @@ article {
 }
 
 #map {
+  border: 5px solid #00fde2;
   height: 800px;
   margin: 15px 0 0 0;
 }
 
+.eventful-badge,
+.eventful-badge * {
+  margin: 0             !important;
+  padding: 0            !important;
+  border: 0             !important;
+  text-align: center    !important;
+  color: #CCC           !important;
+  font-family: Arial    !important;
+  text-decoration: none !important;
+}
+
+.eventful-small {     
+  position: relative    !important;
+  width: 100px          !important;
+  font-size: 11px       !important;
+  line-height: 11px     !important;
+  float: left;
+  z-index: 1;
+}
+
+.login {
+  position: relative;
+  z-index: 1;
+}

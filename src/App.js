@@ -4,25 +4,30 @@ import Map from './components/Map';
 import Search from './components/Search';
 import EventList from './components/EventList';
 import Banner from './components/Banner';
+import getYouTube from './utils/youtube.js';
+import keys from './config/apikeys.js';
 import $ from 'jquery';
+import getloc from './utils/getloc';
+import getdate from './utils/getdate';
 
-/*eslint-disable */
-const mapStyle = [{'featureType':'administrative.neighborhood','elementType':'labels.text','stylers':[{'visibility':'simplified'}]},{'featureType':'all','elementType':'labels.text.fill','stylers':[{'color':'#ffffff'}]},{'featureType':'all','elementType':'labels.text.stroke','stylers':[{'color':'#000000'},{'lightness':13}]},{'featureType':'administrative','elementType':'geometry.fill','stylers':[{'visibility':'off'},{'color':'#000000'}]},{'featureType':'administrative','elementType':'geometry.stroke','stylers':[{'color':'#144b53'},{'weight':1.4},{'lightness':14}]},{'featureType':'landscape','elementType':'all','stylers':[{'color':'#08304b'}]},{'featureType':'road.highway','elementType':'geometry.fill','stylers':[{'visibility':'on'},{'color':'#000000'}]},{'featureType':'road.highway','elementType':'geometry.stroke','stylers':[{'visibility':'on'},{'color':'#0b434f'},{'lightness':25}]},{'featureType':'road.arterial','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'road.arterial','elementType':'geometry.stroke','stylers':[{'color':'#0b3d51'},{'lightness':16}]},{'featureType':'road.local','elementType':'geometry','stylers':[{'color':'#000000'}]},{'featureType':'transit','elementType':'all','stylers':[{'visibility':'off'},{'color':'#146474'}]},{'featureType':'water','elementType':'all','stylers':[{'color':'#021019'}]},{'featureType':'poi','elementType':'all','stylers':[{'visibility':'off'}]},{'featureType':'road.highway','elementType':'labels.icon','stylers':[{'visibility':'off'}]},{'featureType':'road.arterial','elementType':'labels.text','stylers':[{'visibility':'off'}]},{'featureType':'road.local','elementType':'labels','stylers':[{'visibility':'off'}]},{'featureType':'administrative.land_parcel','elementType':'all','stylers':[{'visibility':'on'}]},{'featureType':'administrative.locality','elementType':'all','stylers':[{'visibility':'off'}]},{'featureType':'road','elementType':'labels.icon','stylers':[{'visibility':'off'}]}];
-/*eslint-enable */
 
 export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      map: null,
+      video: { id: { videoId: '' }, snippet: { title: '' } },
       events: [],
-      // events[i].(latitude, longitude, title,  venue_ name,
-      // venue_address, venue_url, url, city_name, region_abbr)
-      lat: 37.7833,
-      lng: -122.4167,
-      mapStyle: mapStyle, //eslint-disable-line
+      currentEvent: 0,
       fail: false,
+      startDate: getdate('yyyy-mm-dd'),
+      endDate: getdate('yyyy-mm-dd'),
+      lat: null,
+      lng: null,
     };
+
+    getloc((currlocation) => {
+      this.getQuery(currlocation, this.state.startDate, this.state.endDate, 'music');
+    });
   }
 
   getQuery(city, start, end, catStr) { //eslint-disable-line
@@ -52,14 +57,14 @@ export class App extends Component {
       success: (data) => {
         this.setState({ fail: false });
         console.log('call to server successful');
-        // console.log(data);
         if (data) {
-          const eventList = data;
-          this.setState({ events: eventList });
-          this.setState({
-            lat: eventList[Math.floor(eventList.length / 2)].latitude,
-            lng: eventList[Math.floor(eventList.length / 2)].longitude,
-          });
+          // The following two lines of code are because when only a single event is returned,
+          // it is returned as an object, not as an array with an object as its only element.
+          let eventList = [];
+          eventList = eventList.concat(data);
+          // Use method to set the state -- will have side-effect of changing current event
+          // And thereby fixing the map and video
+          this.changeEvents( eventList );
         } else {
           this.setState({ fail: true });
         }
@@ -72,6 +77,47 @@ export class App extends Component {
     });
   }
 
+  changeLatLng(lat, lng) {
+    this.setState({
+      lat,
+      lng,
+    });
+  }
+
+  changeCurrEvent(eventIdx) {
+    const events = this.state.events;
+    this.setState({
+      currentEvent: eventIdx,
+    });
+    this.searchYouTube(events[eventIdx].title, this.changeVideo.bind(this));
+    this.changeLatLng(events[eventIdx].latitude, events[eventIdx].longitude);
+  }
+
+  changeEvents(events) {
+    this.setState({
+      events,
+    });
+    // Reset the current event to the 0th whenever we get a new event list.
+    this.changeCurrEvent(0);
+  }
+
+  changeVideo(video) {
+    this.setState({
+      video,
+    });
+  }
+
+  searchYouTube(search, callback) {
+    const options = {
+      query: search,
+      max: 1,
+      key: keys.google,
+    };
+    getYouTube(options, (data) => {
+      callback(data.items[0]);
+    });
+  }
+
   /*eslint-disable */
   render() {
     return (
@@ -79,13 +125,15 @@ export class App extends Component {
         <Banner />
         <div className="app">
           <a name="mainApp"/>
-          <Search getQuery={ this.getQuery.bind(this) } />
+          <div className="col-xs-12">
+            <Search getQuery={ this.getQuery.bind(this) } />
+          </div>
           <br/>
           <br/>
           <div className="col-xs-12">
           <h4 className="mapError">{ this.state.fail ? 'There are no events for this time and place. Please try again' : ''}</h4>
-            <Map parentState={ this.state } />
-            <EventList data={ this.state.events } />
+            <Map parentState={ this.state } changeLatLng={ this.changeLatLng.bind(this) } changeCurrEvent={ this.changeCurrEvent.bind(this) }/>
+            <EventList data={ this.state.events } video={ this.state.video } currentEvent={ this.state.currentEvent } changeCurrEvent={ this.changeCurrEvent.bind(this) }/>
           </div>
         </div>
       </container>
