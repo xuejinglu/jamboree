@@ -36,11 +36,12 @@ class Map extends Component {
     });
   }
 
-  componentDidUpdate(nextProps) {
+  componentDidUpdate(prevProps) {
     const map = this.state.map;
-    const myLatLng = this.getLatLng(nextProps);
-    this.renderPins(nextProps.parentState.events, map, nextProps.parentState.eats);
-    
+    const myLatLng = this.getLatLng(prevProps);
+    // renderPins( Map, Array, Function( place, index ), Boolean, Function( marker ) )
+    //add render pins for eats
+    this.renderPins( map, prevProps.parentState.events, this.extractDataFromEvent.bind( this ), true, this.eventClickListener.bind( this ) );
     if (myLatLng.lat && myLatLng.lng) {
       map.setCenter(myLatLng);
       map.setZoom(14);
@@ -48,61 +49,137 @@ class Map extends Component {
     return true;
   }
 
-  renderPins(events, map, eats) {
-    const context = this;
-    let pins = [];
-    let eatPins = [];
+  extractDataFromEvent( event, idx ) {
+    // format event object into data usable by renderPins
 
-    for (let i = 0; i < events.length; i++) {
-      let description;
-      if (events[i].description) {
-        description = '<br><b>Description</b>: ' + events[i].description + '</p>'; //eslint-disable-line
-      } else {
-        description = '';
-      }
-      const contentString = '<h3>' + events[i].title + '</h3>' +//eslint-disable-line
-                    '<h4><a href="' + events[i].url + '">Buy Tickets</a></h4>' +
-                    '<br><b>Venue</b>: ' + events[i].venue_name +
-                    description; //eslint-disable-line
-      pins.push({
-        latlon: new google.maps.LatLng(events[i].latitude, events[i].longitude), //eslint-disable-line
-        message: new google.maps.InfoWindow({ //eslint-disable-line
-          content: contentString,
-          maxWidth: 275,
-          maxHeight: 250,
-        }),
-        eventIdx: i,
-      });
+    let description;
+     if (event.description) {
+       description = '<br><b>Description</b>: ' + event.description + '</p>'; //eslint-disable-line
+     } else {
+       description = '';
+     }
+     const contentString = '<h3>' + event.title + '</h3>' +//eslint-disable-line
+                   '<h4><a href="' + event.url + '">Buy Tickets</a></h4>' +
+                   '<br><b>Venue</b>: ' + event.venue_name +
+                   '<br><b>Address: </b><a href="http://maps.google.com/?q=' +
+                     event.venue_address + ',' +
+                     event.city_name + ',' +
+                     event.region_abbr +
+                     '" TARGET="_blank">' +
+                     event.venue_address + ', ' +
+                     event.city_name + ', ' +
+                     event.region_abbr + '</a></b>' +
+                   description; //eslint-disable-line
+
+    return {
+      title: event.title,
+      position: new google.maps.LatLng( event.latitude, event.longitude ),
+      icon: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png',
+      message: {
+        content: contentString,
+        maxWidth: 275,
+        maxHeight: 250,
+      },
+      idx: idx,
     }
-    let bounds = new google.maps.LatLngBounds(); //eslint-disable-line
-    pins.forEach((pin) => { //eslint-disable-line
-      let marker = new google.maps.Marker({ //eslint-disable-line
-        position: pin.latlon,
-        map: map, //eslint-disable-line
-        title: 'Big Map',
-        icon: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png',
-      });
 
-      if (marker.getVisible()) {
-        bounds.extend(marker.getPosition());
+  }
+
+  extractDataFromEat( eat, idx ) {
+    // format eat object into data usable by renderPins
+    const address = eat.location.display_address[0] + ' ' + eat.location.display_address[1] + ' ' + eat.location.display_address[2];
+    let description = '<h3>' + eat.name + '</h3>' + 
+                        '<h4><a href="' + eat.mobile_url + '">Mobile Link</a></h4>' +
+                        '<br><b>Address</b>: ' + address +
+                        '<br>'
+                        '<br><b>Phone</b>: ' + eat.display_phone +
+                        '<br><b>Categories</b>: ';
+    eat.categories.forEach( function( category, index ) {
+      description += category[0];
+      if( index+1 < categories.length ) {
+        description += ', ';
+      }
+    });
+    description +=      '<br><b>Rating</b>:' + eat.rating;
+
+    return {
+      title: eat.name,
+      position: new google.maps.LatLng( eat.location.coordinate.latitude, eat.location.coordinate.longitude ),
+      icon: '',
+      message: {
+        content: description,
+        maxWidth: 275,
+        maxHeight: 250,
+      },
+      idx: idx,
+    }
+  }
+
+  eventClickListener( marker ) {
+    let pin = this.currentSelectedPin;
+    if( pin ) {
+      pin.message.close();
+    }
+    this.props.changeCurrEvent( marker.idx );
+    this.currentSelectedPin = marker;
+    marker.message.open( this.state.map, marker );
+
+  }
+
+  eatClickListener( marker ) {
+    let pin = this.currentSelectedPin;
+    if( pin ) {
+      pin.message.close();
+    }
+    this.currentSelectedPin = marker;
+    marker.message.open( this.state.map, marker );
+  }
+
+  // renderPins( Map, Array, Function( place, index ), Boolean, Function( marker ) )
+  renderPins(map, places, extractData, shouldExpandBounds, onClickListener) {
+    // side effect function that sets up markers.
+    // event: title, description, url, venue_name, latitude, longitude
+    // events: array of event objects.
+    // eats: array of eat objects.
+    // eat: name, display_phone, , mobile_url, location.coordinate.latitude, location.coordinate.longitude,
+    let bounds;
+
+    if( shouldExpandBounds ) {
+      bounds = new google.maps.LatLngBounds();
+    }
+
+    places.forEach( function( place, index ) {
+      let extractedPlace = extractData( place, index );
+      let marker = new google.maps.Marker({
+        position: extractedPlace.position,
+        map: map,
+        title: extractedPlace.title,
+        icon: extractedPlace.icon,
+      });
+      marker.message = new google.maps.InfoWindow( extractedPlace.message );
+      marker.idx = extractedPlace.idx;
+
+      if( shouldExpandBounds ) {
+        if( marker.getVisible() ) {
+          bounds.extend( marker.getPosition() );
+        }
       }
 
-      // For each marker created, add a listener that checks for clicks
-      google.maps.event.addListener(marker, 'click', function (){ //eslint-disable-line
-        if (context.currentSelectedPin) {
-          context.currentSelectedPin.message.close();
-        }
-        context.props.changeCurrEvent(pin.eventIdx);
-        context.currentSelectedPin = pin;
-        pin.message.open(map, marker);
-      });
+      if( onClickListener ) {
+        google.maps.event.addListener( marker, 'click', onClickListener.bind( this, marker ) );
+      }
+
     });
-    map.fitBounds(bounds);
+
+    if( shouldExpandBounds ) {
+      map.fitBounds( bounds );
+    }
+
   }
 
   render() {
     return (
-      <div className="col-xs-8 " id="map"> This div element contains map </div>
+      <div className="col-xs-8 " id="map">A map of found events</div>
       );
   }
 }
