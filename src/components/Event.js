@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class Event extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Event extends Component {
     // If the props being passed change, we want to update these
     // variables
     this.start_date = new Date(nextProps.data.start_time);
-    this.date_str = this.start_date.toString()
+    this.date_str = this.start_date.toString();
   }
   /*eslint-disable */
 
@@ -34,6 +34,6 @@ class Event extends Component {
 }
 /*eslint-enable */
 
-Event.propTypes = {data: React.PropTypes.object.isRequired};
+Event.propTypes = { data: React.PropTypes.object.isRequired };
 
 export default Event;
