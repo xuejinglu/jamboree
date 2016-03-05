@@ -13,9 +13,7 @@ class Search extends React.Component {
   componentDidMount() {
     // sets current location for on page load
     getloc((loc) => {
-      this.setState({
-        location: loc,
-      });
+      this.setLocation(loc);
     });
   }
 
@@ -47,7 +45,7 @@ class Search extends React.Component {
     this.props.getQuery(this.refs.city.value, this.refs.start.value, this.refs.end.value, catStr);
   }
 
-  handleClick(event) {
+  handleChange(event) {
     this.setLocation(event.target.value);
   }
 
@@ -58,7 +56,7 @@ class Search extends React.Component {
         <form className="form-group row">
           <div className="col-md-3">
             <label htmlFor="city">Enter a city or zipcode:</label>
-            <input type="text" onChange={this.handleClick.bind(this)} value={this.state.location} id="locationField" className="form-control" ref="city"/>
+            <input type="text" onChange={this.handleChange.bind(this)} value={this.state.location} id="locationField" className="form-control" ref="city"/>
           </div>
           <div className="col-md-3">
             <label htmlFor="start">Enter start date</label>
