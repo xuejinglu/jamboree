@@ -115,18 +115,30 @@ class Map extends Component {
   }
 
   // renderPins( Map, Array, Function, Boolean )
-  renderPins(map, places, extractData, shouldExpandBounds) {
+  renderPins(map, places, extractData, shouldExpandBounds, onClickListener) {
     // side effect function that sets up markers.
     // event: title, description, url, venue_name, latitude, longitude
     // events: array of event objects.
     // eats: array of eat objects.
-    // eat: name, display_phone, , mobile_url, location.coordinate.latitude, location.coordinate.longitude, 
+    // eat: name, display_phone, , mobile_url, location.coordinate.latitude, location.coordinate.longitude,
+
+    places.forEach( function( place, index ) {
+      let extractedPlace = extractData( place, index );
+      let marker = new google.maps.Marker({
+        position: extractedPlace.position,
+        map: map,
+        title: extractedPlace.title,
+        icon: extractedPlace.icon,
+      });
+      marker.message = new google.maps.InfoWindow( extractedPlace.message );
+      marker.idx = extractedPlace.idx;
+    });
     
   }
 
   render() {
     return (
-      <div className="col-xs-8 " id="map"> This div element contains map </div>
+      <div className="col-xs-8 " id="map">A map of found events</div>
       );
   }
 }
