@@ -87,7 +87,7 @@ class Map extends Component {
       google.maps.event.addListener(marker, 'click', function (){ //eslint-disable-line
         if (context.currentSelectedPin) {
           context.currentSelectedPin.message.close();
-        } 
+        }
         context.props.changeCurrEvent(pin.eventIdx);
         context.currentSelectedPin = pin;
         pin.message.open(map, marker);
