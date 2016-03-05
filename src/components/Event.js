@@ -3,7 +3,15 @@ import React, { Component } from 'react';
 class Event extends Component {
   constructor(props) {
     super(props);
+    // Initialize these variables
     this.start_date = new Date( this.props.data.start_time );
+    this.date_str = this.start_date.toString()
+  }
+
+  componentWillUpdate( nextProps ) {
+    // If the props being passed change, we want to update these
+    // variables
+    this.start_date = new Date( nextProps.data.start_time );
     this.date_str = this.start_date.toString()
   }
 

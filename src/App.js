@@ -92,8 +92,9 @@ export class App extends Component {
           // it is returned as an object, not as an array with an object as its only element.
           let eventList = [];
           eventList = eventList.concat(data);
-          this.setState({ events: eventList });
-          this.searchYouTube(eventList[0].title, this.changeVideo.bind(this));
+          // Use method to set the state -- will have side-effect of changing current event
+          // And thereby fixing the map and video
+          this.changeEvents( eventList );
         } else {
           this.setState({ fail: true });
         }
