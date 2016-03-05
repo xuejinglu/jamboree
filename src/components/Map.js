@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import initMap from '../../public/Helpers'
-
 
 class Map extends Component {
   constructor(props) {
@@ -19,6 +17,7 @@ class Map extends Component {
     this.setState({
       map: this.getMap(this.getLatLng(this.props)),
     });
+    //console.log("where are we");
   }
   /*eslint-enable */
 
@@ -40,7 +39,8 @@ class Map extends Component {
   componentDidUpdate(nextProps) {
     const map = this.state.map;
     const myLatLng = this.getLatLng(nextProps);
-    this.renderPins(nextProps.parentState.events, map);
+    this.renderPins(nextProps.parentState.events, map, nextProps.parentState.eats);
+    
     if (myLatLng.lat && myLatLng.lng) {
       map.setCenter(myLatLng);
       map.setZoom(14);
@@ -48,9 +48,11 @@ class Map extends Component {
     return true;
   }
 
-  renderPins(events, map) {
+  renderPins(events, map, eats) {
     const context = this;
-    const pins = [];
+    let pins = [];
+    let eatPins = [];
+
     for (let i = 0; i < events.length; i++) {
       let description;
       if (events[i].description) {

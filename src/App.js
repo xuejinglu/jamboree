@@ -23,6 +23,7 @@ export class App extends Component {
       endDate: getdate('yyyy-mm-dd'),
       lat: null,
       lng: null,
+      eats: [],
     };
 
     getloc((currlocation) => {
@@ -91,6 +92,14 @@ export class App extends Component {
     });
     this.searchYouTube(events[eventIdx].title, this.changeVideo.bind(this));
     this.changeLatLng(events[eventIdx].latitude, events[eventIdx].longitude);
+    this.getYelp(events[eventIdx].latitude +","+ events[eventIdx].longitude, this.changeEats.bind(this));
+  }
+
+  changeEats(eats) {
+    console.log(eats);
+    this.setState({
+      eats,
+    });
   }
 
   changeEvents(events) {
@@ -116,6 +125,21 @@ export class App extends Component {
     getYouTube(options, (data) => {
       callback(data.items[0]);
     });
+  }
+
+  getYelp(location, callback) {
+    console.log(location);
+    $.ajax({
+      method: 'GET',
+      url: '/getEats/' + location,
+      contentType: 'application/json',
+      success: callback,
+      error: (data) => {
+        console.error('server AJAX failed to GET');
+        console.log('problem is ', JSON.parse(data.responseText));
+        console.log(JSON.parse(data.responseText));
+      },
+    })
   }
 
   /*eslint-disable */

@@ -1,6 +1,7 @@
 import React from 'react';
 import getloc from '../utils/getloc';
 import getdate from '../utils/getdate';
+import $ from 'jquery';
 
 class Search extends React.Component {
   constructor(props) {
