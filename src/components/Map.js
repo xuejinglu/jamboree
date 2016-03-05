@@ -61,6 +61,11 @@ class Map extends Component {
       const contentString = '<h3>' + events[i].title + '</h3>' +//eslint-disable-line
                     '<h4><a href="' + events[i].url + '">Buy Tickets</a></h4>' +
                     '<br><b>Venue</b>: ' + events[i].venue_name +
+                    '<br><b><a href="http://maps.google.com/?q=' +
+                      events[i].venue_address + ',' +
+                      events[i].city_name + ',' +
+                      events[i].region_abbr +
+                      '" TARGET="_blank">View Address In Google Maps</a></b>' +
                     description; //eslint-disable-line
       pins.push({
         latlon: new google.maps.LatLng(events[i].latitude, events[i].longitude), //eslint-disable-line
