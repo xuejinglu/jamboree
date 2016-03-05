@@ -113,7 +113,11 @@ export class App extends Component {
       key: keys.google,
     };
     getYouTube(options, (data) => {
-      callback(data.items[0]);
+      if( data.items.length === 0 ) {
+        callback({ id: { videoId: '' }, snippet: { title: 'No video for event' } });
+      } else {
+        callback(data.items[0]);
+      }
     });
   }
 
