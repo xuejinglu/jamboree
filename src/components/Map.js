@@ -7,6 +7,7 @@ class Map extends Component {
     this.mapStyle = [{'featureType':'administrative.neighborhood','elementType':'labels.text','stylers':[{'visibility':'simplified'}]},{'featureType':'all','elementType':'labels.text.fill','stylers':[{'color':'#ffffff'}]},{'featureType':'all','elementType':'labels.text.stroke','stylers':[{'color':'#000000'},{'lightness':13}]},{'featureType':'administrative','elementType':'geometry.fill','stylers':[{'visibility':'off'},{'color':'#000000'}]},{'featureType':'administrative','elementType':'geometry.stroke','stylers':[{'color':'#144b53'},{'weight':1.4},{'lightness':14}]},{'featureType':'landscape','elementType':'all','stylers':[{'color':'#08304b'}]},{'featureType':'road.highway','elementType':'geometry.fill','stylers':[{'visibility':'on'},{'color':'#000000'}]},{'featureType':'road.highway','elementType':'geometry.stroke','stylers':[{'visibility':'on'},{'color':'#0b434f'},{'lightness':25}]},{'featureType':'road.arterial','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'road.arterial','elementType':'geometry.stroke','stylers':[{'color':'#0b3d51'},{'lightness':16}]},{'featureType':'road.local','elementType':'geometry','stylers':[{'color':'#000000'}]},{'featureType':'transit','elementType':'all','stylers':[{'visibility':'off'},{'color':'#146474'}]},{'featureType':'water','elementType':'all','stylers':[{'color':'#021019'}]},{'featureType':'poi','elementType':'all','stylers':[{'visibility':'off'}]},{'featureType':'road.highway','elementType':'labels.icon','stylers':[{'visibility':'off'}]},{'featureType':'road.arterial','elementType':'labels.text','stylers':[{'visibility':'off'}]},{'featureType':'road.local','elementType':'labels','stylers':[{'visibility':'off'}]},{'featureType':'administrative.land_parcel','elementType':'all','stylers':[{'visibility':'on'}]},{'featureType':'administrative.locality','elementType':'all','stylers':[{'visibility':'off'}]},{'featureType':'road','elementType':'labels.icon','stylers':[{'visibility':'off'}]}];
     /*eslint-enable */
     this.currentSelectedPin = null;
+    this.eatMarkers = [];
     this.state = {
       map: {},
     };
@@ -41,6 +42,11 @@ class Map extends Component {
     const myLatLng = this.getLatLng(prevProps);
     // renderPins( Map, Array, Function( place, index ), Boolean, Function( marker ) )
     //add render pins for eats
+    for( let i = 0; i < this.eatMarkers.length; i++ ) {
+      this.eatMarkers[i].setMap( null );
+    }
+    this.eatMarkers = [];
+    this.eatMarkers = this.renderPins( map, prevProps.parentState.eats, this.extractDataFromEat.bind(this), false, this.eatClickListener.bind( this ));
     this.renderPins( map, prevProps.parentState.events, this.extractDataFromEvent.bind( this ), true, this.eventClickListener.bind( this ) );
     if (myLatLng.lat && myLatLng.lng) {
       map.setCenter(myLatLng);
@@ -96,7 +102,7 @@ class Map extends Component {
                         '<br><b>Categories</b>: ';
     eat.categories.forEach( function( category, index ) {
       description += category[0];
-      if( index+1 < categories.length ) {
+      if( index+1 < eat.categories.length ) {
         description += ', ';
       }
     });
@@ -105,7 +111,7 @@ class Map extends Component {
     return {
       title: eat.name,
       position: new google.maps.LatLng( eat.location.coordinate.latitude, eat.location.coordinate.longitude ),
-      icon: '',
+      icon: 'http://icons.iconarchive.com/icons/iconicon/veggies/24/bananas-icon.png',
       message: {
         content: description,
         maxWidth: 275,
@@ -143,6 +149,7 @@ class Map extends Component {
     // eats: array of eat objects.
     // eat: name, display_phone, , mobile_url, location.coordinate.latitude, location.coordinate.longitude,
     let bounds;
+    let markers = [];
 
     if( shouldExpandBounds ) {
       bounds = new google.maps.LatLngBounds();
@@ -169,11 +176,15 @@ class Map extends Component {
         google.maps.event.addListener( marker, 'click', onClickListener.bind( this, marker ) );
       }
 
+      markers.push( marker );
+
     });
 
     if( shouldExpandBounds ) {
       map.fitBounds( bounds );
     }
+
+    return markers;
 
   }
 
