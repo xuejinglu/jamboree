@@ -48,54 +48,46 @@ class Map extends Component {
     return true;
   }
 
-  renderPins(events, map) {
-    const context = this;
-    const pins = [];
-    for (let i = 0; i < events.length; i++) {
-      let description;
-      if (events[i].description) {
-        description = '<br><b>Description</b>: ' + events[i].description + '</p>'; //eslint-disable-line
-      } else {
-        description = '';
-      }
-      const contentString = '<h3>' + events[i].title + '</h3>' +//eslint-disable-line
-                    '<h4><a href="' + events[i].url + '">Buy Tickets</a></h4>' +
-                    '<br><b>Venue</b>: ' + events[i].venue_name +
-                    description; //eslint-disable-line
-      pins.push({
-        latlon: new google.maps.LatLng(events[i].latitude, events[i].longitude), //eslint-disable-line
-        message: new google.maps.InfoWindow({ //eslint-disable-line
-          content: contentString,
-          maxWidth: 275,
-          maxHeight: 250,
-        }),
-        eventIdx: i,
-      });
+  extractDataFromEvent( event, idx ) {
+    // format event object into data usable by renderPins
+
+    let description;
+     if (event.description) {
+       description = '<br><b>Description</b>: ' + events.description + '</p>'; //eslint-disable-line
+     } else {
+       description = '';
+     }
+     const contentString = '<h3>' + event.title + '</h3>' +//eslint-disable-line
+                   '<h4><a href="' + event.url + '">Buy Tickets</a></h4>' +
+                   '<br><b>Venue</b>: ' + event.venue_name +
+                   description; //eslint-disable-line
+
+    return {
+      title: event.title,
+      position: new google.maps.LatLng( event.latitude, event.longitude ),
+      icon: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png',
+      message: {
+        content: description,
+        maxWidth: 275,
+        maxHeight: 250,
+      },
+      idx: idx,
     }
-    let bounds = new google.maps.LatLngBounds(); //eslint-disable-line
-    pins.forEach((pin) => { //eslint-disable-line
-      let marker = new google.maps.Marker({ //eslint-disable-line
-        position: pin.latlon,
-        map: map, //eslint-disable-line
-        title: 'Big Map',
-        icon: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png',
-      });
 
-      if (marker.getVisible()) {
-        bounds.extend(marker.getPosition());
-      }
+  }
 
-      // For each marker created, add a listener that checks for clicks
-      google.maps.event.addListener(marker, 'click', function (){ //eslint-disable-line
-        if (context.currentSelectedPin) {
-          context.currentSelectedPin.message.close();
-        }
-        context.props.changeCurrEvent(pin.eventIdx);
-        context.currentSelectedPin = pin;
-        pin.message.open(map, marker);
-      });
-    });
-    map.fitBounds(bounds);
+  extractDataFromEat( eat, idx ) {
+    // format eat object into data usable by renderPins
+  }
+
+  // renderPins( Map, Array, Function, Boolean )
+  renderPins(map, places, extractData, shouldExpandBounds) {
+    // side effect function that sets up markers.
+    // event: title, description, url, venue_name, latitude, longitude
+    // events: array of event objects.
+    // eats: array of eat objects.
+    // eat: name, display_phone, , mobile_url, location.coordinate.latitude, location.coordinate.longitude, 
+    
   }
 
   render() {
