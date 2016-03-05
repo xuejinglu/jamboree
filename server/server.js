@@ -32,7 +32,7 @@ app.use(passport.initialize());
 passport.use(new Strategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_SECRET,
-    callbackURL: 'https://safe-castle-94800.herokuapp.com:' + process.env.PORT + '/login/facebook/return',
+    callbackURL: 'https://ancient-taiga-77105.herokuapp.com:' + process.env.PORT + '/login/facebook/return',
     profileFields: ['id', 'displayName', 'picture.height(150).width(150)','friends']
   },
   function(accessToken, refreshToken, profile, cb) {
