@@ -64,7 +64,7 @@ export class App extends Component {
           eventList = eventList.concat(data);
           // Use method to set the state -- will have side-effect of changing current event
           // And thereby fixing the map and video
-          this.changeEvents( eventList );
+          this.changeEvents(eventList);
         } else {
           this.setState({ fail: true });
         }
