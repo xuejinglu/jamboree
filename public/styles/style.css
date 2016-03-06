@@ -173,8 +173,3 @@ article {
   float: left;
   z-index: 1;
 }
-
-.login {
-  position: relative;
-  z-index: 1;
-}
